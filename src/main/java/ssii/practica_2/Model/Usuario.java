@@ -22,7 +22,9 @@ public class Usuario {
     
 	private String ciudad_residencia;
 	private List<Servicio> servicios;
+	private List<Solicitud> solicitudes;
 	
+
 	public Usuario() {
 	};
 	
@@ -118,6 +120,14 @@ public class Usuario {
 	        this.roles = roles;
 	  }
 
+	@OneToMany(mappedBy = "cliente")
+	public List<Solicitud> getSolicitudes() {
+		return solicitudes;
+	}
+
+	public void setSolicitudes(List<Solicitud> solicitudes) {
+		this.solicitudes = solicitudes;
+	}
 	
 	
 	

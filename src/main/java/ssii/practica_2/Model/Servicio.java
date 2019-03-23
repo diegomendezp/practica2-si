@@ -1,5 +1,7 @@
 package ssii.practica_2.Model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Servicio {
 	private int horas;
 	private Double precio;
 	private Usuario profesional;
+	private List<Solicitud> solicitudes;
 	
 	public Servicio() {
 	};
@@ -82,6 +85,15 @@ public class Servicio {
 
 	public void setProfesional(Usuario profesional) {
 		this.profesional = profesional;
+	}
+	
+	@OneToMany(mappedBy = "servicio")
+	public List<Solicitud> getSolicitudes() {
+		return solicitudes;
+	}
+
+	public void setSolicitudes(List<Solicitud> solicitudes) {
+		this.solicitudes = solicitudes;
 	}
 	
 	
