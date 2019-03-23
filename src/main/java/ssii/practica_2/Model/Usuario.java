@@ -15,7 +15,9 @@ public class Usuario {
 	private String fecha_nacimiento;
 	private String ciudad_residencia;
 	private List<Servicio> servicios;
+	private List<Solicitud> solicitudes;
 	
+
 	public Usuario() {
 	};
 	
@@ -104,6 +106,14 @@ public class Usuario {
 		this.servicios = servicios;
 	}
 
+	@OneToMany(mappedBy = "cliente")
+	public List<Solicitud> getSolicitudes() {
+		return solicitudes;
+	}
+
+	public void setSolicitudes(List<Solicitud> solicitudes) {
+		this.solicitudes = solicitudes;
+	}
 	
 	
 	
