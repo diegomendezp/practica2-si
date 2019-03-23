@@ -1,15 +1,7 @@
 package ssii.practica_2.Model;
-/*. Se compone de cliente que realiza la solicitud, servicio solicitado, fecha de solicitud, fecha
-del servicio, dirección en que tendrá lugar el servicio (calle, número y población), importe cobrado,
-estado (los posibles estados son “Pendiente”, “Confirmada”, “Denegada”, “Cancelada”, “Completada”
-e “Incidencia”) y descripción del estado. En este último campo se debe guardar un texto que explique
-por qué ha sido denegada la solicitud o cuál ha sido la incidencia.*/
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 public class Solicitud {
 	private int id;
