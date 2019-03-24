@@ -81,7 +81,7 @@ public class Servicio {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="profesional_id")
+	@JoinColumn(name = "profesional_id")
 	public Usuario getProfesional() {
 		return profesional;
 	}

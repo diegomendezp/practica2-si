@@ -1,7 +1,7 @@
 package ssii.practica_2.Model;
 
 import java.util.List;
-import java.util.Set;
+
 
 import javax.persistence.*;
 
@@ -115,13 +115,7 @@ public class Usuario {
 		this.solicitudes = solicitudes;
 	}
 	
-	public String getUsername() {
-		return email;
-	}
 
-	public void setUsername(String mail) {
-		this.email = mail;
-	}
 	
 	
 	
