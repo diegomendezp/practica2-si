@@ -17,7 +17,7 @@ import ssii.practica_2.Model.Servicio;
 
 @RestController
 public class ServiceController {
-
+/*
 //    private final AtomicLong counter = new AtomicLong();
 //    private ArrayList<String> authors =  new ArrayList<String>(Arrays.asList("Nathanial Storey","Rosendo Barlow","Erin Duggins","Lilly Fouch","Tashina Creek","Chantelle Moll","Shaquana Marple","Lupe Fournier","Hobert Delvalle","Porfirio Caruthers"));
 //    private ArrayList<String> names =  new ArrayList<String>(Arrays.asList("Reparación Dispositivos","Instalación de software","Diseño de interfaz", "Reparación Dispositivos","Instalación de software","Reparación Dispositivos","Instalación de software","Reparación Dispositivos","Instalación de software","Reparación Dispositivos"));
@@ -66,6 +66,6 @@ public class ServiceController {
     		return new Servicio();
 //    		return new Servicio(id,name, author, description, price, category, duration,status);
     	
-    }
+    }*/
     
 }

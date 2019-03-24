@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+  <link rel="stylesheet" href="/css/styles.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/js/components.js"></script>
+ <!-- <script src="/js/index.js"></script>-->
+  <title>Autónomos Network</title>
+</head>
+<body>
+  <nav>
+    <div class='nav-main'>
+      <p class='nav-title' onclick="displayHome()">aN</p>
+    </div>
+    <div id='user-menu'>
+      <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
+      <ul id="user-menu-navigation">
+        <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
+        <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
+      </ul>
+    </div>
+  </nav>
+  <div id='main'>
+
+  </div>
+  <!-- <div id="new-service-button"><img src='/images/new.png'/></div> -->
+
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id='modal-container'>
+
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <ul class="contact-us"> Contáctanos
+      <li>Mail: anetwork@gmail.com</li>
+      <li>Tel: 916578998</li>
+    </ul>
+    <ul class="horario"> Horario
+      <li>OPEN MON-SAT</li>
+      <li>09AM-18PM</li>
+    </ul>
+
+
+    <div class="mailing-list"> Newsletter
+      <input type="text" name="footer-email" id="footer-email" placeholder="Email address"></input>
+      <button id="footer-btn">Subscríbete</button>
+    </div>
+
+  </footer>
+</body>
+</html>

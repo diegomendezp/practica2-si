@@ -2,7 +2,7 @@ package ssii.practica_2.Model;
 
 
 import javax.persistence.*;
-
+@Entity
 public class Solicitud {
 	private int id;
 	private Usuario cliente;

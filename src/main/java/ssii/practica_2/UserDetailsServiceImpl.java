@@ -1,4 +1,4 @@
-package ssii.practica_2;
+/*package ssii.practica_2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,3 +35,4 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         return new org.springframework.security.core.userdetails.User(user.getMail(), user.getContraseña(), grantedAuthorities);
     }
 }
+*/

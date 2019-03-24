@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 
-import javax.persistence.*;
+
 
 @Entity
 public class Usuario {
@@ -15,9 +15,9 @@ public class Usuario {
 	private String apellidos;
 	private String mail;
 	private String contraseña;
-	
-	@ManyToMany
-    private Set<Role> roles;	
+	private String perfil;
+	//@ManyToMany
+   // private Set<Role> roles;	
 	private String fecha_nacimiento;
     
 	private String ciudad_residencia;
@@ -80,13 +80,13 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
-//	public String getPerfil() {
-//		return perfil;
-//	}
-//
-//	public void setPerfil(String perfil) {
-//		this.perfil = perfil;
-//	}
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
 
 	public String getFecha_nacimiento() {
 		return fecha_nacimiento;
@@ -112,13 +112,13 @@ public class Usuario {
 	public void setServicios(List<Servicio> servicios) {
 		this.servicios = servicios;
 	}
-	 public Set<Role> getRoles() {
+	/* public Set<Role> getRoles() {
 	        return roles;
 	    }
 
 	  public void setRoles(Set<Role> roles) {
 	        this.roles = roles;
-	  }
+	  }*/
 
 	@OneToMany(mappedBy = "cliente")
 	public List<Solicitud> getSolicitudes() {

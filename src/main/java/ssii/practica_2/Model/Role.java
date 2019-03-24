@@ -3,8 +3,8 @@ package ssii.practica_2.Model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "role")
+/*@Entity
+//@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +12,7 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    //@ManyToMany(mappedBy = "roles")
     private Set<Usuario> users;
 
     public Long getId() {
@@ -38,4 +38,4 @@ public class Role {
     public void setUsers(Set<Usuario> users) {
         this.users = users;
     }
-}
+}*/
