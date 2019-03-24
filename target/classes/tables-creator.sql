@@ -13,8 +13,8 @@ CREATE TABLE `usuario`
 (255) DEFAULT NULL,
   `password` varchar
 (255) DEFAULT NULL,
-  `role` ENUM
-('CUSTOMER', 'PROFESSIONAL', 'ANALYST')  NOT NULL DEFAULT 'CUSTOMER',
+FOREIGN KEY
+  `role` REFERENCES `role`,
   `fecha_nacimiento` varchar
 (255) DEFAULT NULL,
   `ciudad_residencia` varchar
@@ -97,7 +97,7 @@ DEFAULT CHARSET=latin1;
 
 
 insert into usuario
-  (id,nombre,apellidos,mail,password,role,fecha_nacimiento,ciudad_residencia)
+  (id,nombre,apellidos,email,password,role,fecha_nacimiento,ciudad_residencia)
 values
   (1, 'Nico', 'Alexe', 'nico@gmail.com', '1234', (1), '11-01-1991', 'Madrid'),
   (2, 'Diego', 'Mendez', 'diego@gmail.com', '1234', (2), '11-01-1991', 'Madrid');

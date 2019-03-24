@@ -14,9 +14,9 @@ public class Usuario {
 	private String nombre;
 	private String apellidos;
 	private String email;
-	private String password;
+	private String contraseña;
 	
-    private Role role;	
+    private Role perfil;	
 	private String fecha_nacimiento;
     
 	private String ciudad_residencia;
@@ -63,12 +63,12 @@ public class Usuario {
 	}
 
 
-	public String getPassword() {
-		return password;
+	public String getContraseña() {
+		return contraseña;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContraseña(String password) {
+		this.contraseña = password;
 	}
 
 	public String getFecha_nacimiento() {
@@ -97,13 +97,13 @@ public class Usuario {
 	}
 	
 	 @ManyToOne
-	 @JoinColumn(name="role_id")
+	 @JoinColumn(name="perfil_id")
 	 public Role getRole() {
-	        return role;
+	        return perfil;
 	    }
 
-	  public void setRole(Role roles) {
-	        this.role = roles;
+	  public void setRole(Role perfil) {
+	        this.perfil = perfil;
 	  }
 
 	@OneToMany(mappedBy = "cliente")

@@ -38,7 +38,7 @@ public class AuthController {
         System.out.println("success");
         userService.save(userForm);
 
-        securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
+        securityService.autoLogin(userForm.getEmail(), userForm.getContraseña());
 
         return "redirect:/";
     }
