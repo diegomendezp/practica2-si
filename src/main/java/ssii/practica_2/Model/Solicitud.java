@@ -5,12 +5,14 @@ estado (los posibles estados son “Pendiente”, “Confirmada”, “Denegada�
 e “Incidencia”) y descripción del estado. En este último campo se debe guardar un texto que explique
 por qué ha sido denegada la solicitud o cuál ha sido la incidencia.*/
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Solicitud {
 	private int id;
 	private Usuario cliente;

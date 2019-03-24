@@ -9,12 +9,12 @@ CREATE TABLE `usuario`
 (255) DEFAULT NULL,
   `apellidos` varchar
 (255) DEFAULT NULL,
-  `mail` varchar
+  `email` varchar
 (255) DEFAULT NULL,
-  `contraseña` varchar
+  `password` varchar
 (255) DEFAULT NULL,
-  `perfil` ENUM
-('CUSTOMER', 'PROFESSIONAL', 'ANALYST')  NOT NULL DEFAULT 'CUSTOMER',
+FOREIGN KEY
+  `role` REFERENCES `role`,
   `fecha_nacimiento` varchar
 (255) DEFAULT NULL,
   `ciudad_residencia` varchar
@@ -23,6 +23,15 @@ CREATE TABLE `usuario`
 (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `role`
+(
+  `id` int
+(11) NOT NULL AUTO_INCREMENT,
+  `name` ENUM
+('CUSTOMER', 'PROFESSIONAL', 'ANALYST')  NOT NULL DEFAULT 'CUSTOMER',
+  PRIMARY KEY
+(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `servicio`
 (
@@ -88,16 +97,22 @@ DEFAULT CHARSET=latin1;
 
 
 insert into usuario
-  (id,nombre,apellidos,mail,contraseña,perfil,fecha_nacimiento,ciudad_residencia)
+  (id,nombre,apellidos,email,password,role,fecha_nacimiento,ciudad_residencia)
 values
-  (1, 'Nico', 'Alexe', 'nico@gmail.com', '1234', 'ANALYST', '11-01-1991', 'Madrid'),
-  (2, 'Diego', 'Mendez', 'diego@gmail.com', '1234', 'CUSTOMER', '11-01-1991', 'Madrid');
+  (1, 'Nico', 'Alexe', 'nico@gmail.com', '1234', (1), '11-01-1991', 'Madrid'),
+  (2, 'Diego', 'Mendez', 'diego@gmail.com', '1234', (2), '11-01-1991', 'Madrid');
 
 insert into servicio
   (id,nombre,descripcion,categoria,horas,precio_total,profesional_id)
 values
   (1, 'Reparación de ordenadores', 'Reparamos todo tipo de dispositivos', 'Informática', '50', '100', 1),
   (2, 'Veterinario', 'Veterinario a domicilio', 'Veterinaria', '5', '15', 2);
+
+insert into role
+  (id,name)
+values
+  (1, 'ANALYST'),
+  (2, 'CUSTOMER');
 
 insert into solicitud
   (id, usuario_id, servicio_id, fecha_solicitud, fecha_servicio, direccion, importe, estado)

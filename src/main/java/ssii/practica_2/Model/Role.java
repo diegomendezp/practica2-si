@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +11,8 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @Column
+    @ElementCollection(targetClass=Usuario.class)
     private Set<Usuario> users;
 
     public Long getId() {
@@ -30,7 +30,8 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
-
+    
+    @OneToMany(mappedBy = "role")
     public Set<Usuario> getUsers() {
         return users;
     }

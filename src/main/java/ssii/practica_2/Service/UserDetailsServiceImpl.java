@@ -1,4 +1,4 @@
-package ssii.practica_2;
+package ssii.practica_2.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,15 +23,15 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String mail) {
-        Usuario user = usuarioRepository.findByMail(mail);
-        if (user == null) throw new UsernameNotFoundException(mail);
+    public UserDetails loadUserByUsername(String email) {
+        Usuario user = usuarioRepository.findByEmail(email);
+        if (user == null) throw new UsernameNotFoundException(email);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+        
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        
 
-        return new org.springframework.security.core.userdetails.User(user.getMail(), user.getContraseña(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
 }

@@ -13,29 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.bind.annotation.c
 
 import ssii.practica_2.Model.Servicio;
+import ssii.practica_2.Repositories.ServiceRepository;
 
 
-@RestController
+//@RestController
 public class ServiceController {
 
-//    private final AtomicLong counter = new AtomicLong();
-//    private ArrayList<String> authors =  new ArrayList<String>(Arrays.asList("Nathanial Storey","Rosendo Barlow","Erin Duggins","Lilly Fouch","Tashina Creek","Chantelle Moll","Shaquana Marple","Lupe Fournier","Hobert Delvalle","Porfirio Caruthers"));
-//    private ArrayList<String> names =  new ArrayList<String>(Arrays.asList("Reparación Dispositivos","Instalación de software","Diseño de interfaz", "Reparación Dispositivos","Instalación de software","Reparación Dispositivos","Instalación de software","Reparación Dispositivos","Instalación de software","Reparación Dispositivos"));
-//    private ArrayList<String> descriptions =  new ArrayList<String>(Arrays.asList("Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing and typesetting industry"));
-//    private ArrayList<Double> prices =  new ArrayList<Double>(Arrays.asList(10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0));
-//    private ArrayList<Integer> durations =  new ArrayList<Integer>(Arrays.asList(50,107,6,67,5,58,10,10,15,220));
-//    private ArrayList<String> categories =  new ArrayList<String>(Arrays.asList("Informática","Electronica","Programacion","Diseño","Informática","Informática","Informática","Informática","Informática","Informática"));
-//    private ArrayList<String> status =  new ArrayList<String>(Arrays.asList("Aceptada","Rechazada","Pendiente","No respondida","No respondida","Rechazada","Pendiente","Pendiente","Aceptada","No respondida"));
-
-   
-   
-    
+	private ServiceRepository serviceRepository ;
+			
     @RequestMapping(value = "/services", method = RequestMethod.GET, produces = "application/json")
-    public List<Servicio> services() {
-    	Servicio s ;
-    	ArrayList<Servicio> list = new ArrayList<Servicio>();
+    public Iterable<Servicio> services() {
     	
-    	return list;
+    	return serviceRepository.findAll();
     }
     
     @RequestMapping(value = "/services/new", method = RequestMethod.POST, produces = "application/json")
