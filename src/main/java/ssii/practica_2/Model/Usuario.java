@@ -13,11 +13,10 @@ public class Usuario {
 	private int id;
 	private String nombre;
 	private String apellidos;
-	private String mail;
+	private String email;
 	private String contraseña;
-	private String perfil;
-	//@ManyToMany
-   // private Set<Role> roles;	
+	
+    private Role perfil;	
 	private String fecha_nacimiento;
     
 	private String ciudad_residencia;
@@ -27,15 +26,6 @@ public class Usuario {
 
 	public Usuario() {
 	};
-	
-	public Usuario(String nombre, String apellidos, String mail, String contraseña, String fecha_nacimiento, String ciudad) {
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.mail = mail;
-		this.contraseña = contraseña;
-		this.fecha_nacimiento = fecha_nacimiento;
-		this.ciudad_residencia = ciudad;
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,28 +54,21 @@ public class Usuario {
 	}
 
 	
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 
 	public String getContraseña() {
 		return contraseña;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
-
-	public String getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
+	public void setContraseña(String password) {
+		this.contraseña = password;
 	}
 
 	public String getFecha_nacimiento() {
@@ -112,13 +95,16 @@ public class Usuario {
 	public void setServicios(List<Servicio> servicios) {
 		this.servicios = servicios;
 	}
-	/* public Set<Role> getRoles() {
-	        return roles;
+	
+	 @ManyToOne
+	 @JoinColumn(name="perfil_id")
+	 public Role getRole() {
+	        return perfil;
 	    }
 
-	  public void setRoles(Set<Role> roles) {
-	        this.roles = roles;
-	  }*/
+	  public void setRole(Role perfil) {
+	        this.perfil = perfil;
+	  }
 
 	@OneToMany(mappedBy = "cliente")
 	public List<Solicitud> getSolicitudes() {
@@ -128,6 +114,15 @@ public class Usuario {
 	public void setSolicitudes(List<Solicitud> solicitudes) {
 		this.solicitudes = solicitudes;
 	}
+	
+	public String getUsername() {
+		return email;
+	}
+
+	public void setUsername(String mail) {
+		this.email = mail;
+	}
+	
 	
 	
 	

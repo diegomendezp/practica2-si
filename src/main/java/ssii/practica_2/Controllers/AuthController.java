@@ -1,36 +1,56 @@
-/*package ssii.practica_2.Controllers;
+package ssii.practica_2.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import ssii.practica_2.UserValidator;
 import ssii.practica_2.Model.Usuario;
-import ssii.practica_2.Repositories.UsuarioRepository;
+import ssii.practica_2.Service.SecurityService;
+import ssii.practica_2.Service.UserService;
 
-
-@RestController
-@RequestMapping(value="/users") 
+@Controller
 public class AuthController {
-	@Autowired 
-	private UsuarioRepository userRepository;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping(value="/login") 
-	public @ResponseBody String addNewUser (@RequestParam String name
-			, @RequestParam String email) {
-			Usuario n = new Usuario();
-//			n.setName(name);
-//			n.setEmail(email);
-//			userRepository.save(n);
-			return "Saved";
-	}
+    @Autowired
+    private SecurityService securityService;
 
-	@RequestMapping(value="/all")
-	public @ResponseBody Iterable<Usuario> getAllUsers() {
-		return userRepository.findAll();
-	}
+    @Autowired
+    private UserValidator userValidator;
+
+    @RequestMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new Usuario());
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration" , method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") Usuario userForm, BindingResult bindingResult) {
+        userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        System.out.println("success");
+        userService.save(userForm);
+
+        securityService.autoLogin(userForm.getEmail(), userForm.getContraseña());
+
+        return "redirect:/";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+        return "login";
+    }
+
 }
-*/
