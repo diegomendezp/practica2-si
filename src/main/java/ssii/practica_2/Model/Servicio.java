@@ -11,7 +11,7 @@ public class Servicio {
 	private String descripcion;
 	private String categoria;
 	private int horas;
-	private Double precio;
+	private Double precio_total;
 	private Usuario profesional;
 	private List<Solicitud> solicitudes;
 	
@@ -23,7 +23,7 @@ public class Servicio {
 		this.descripcion = descripcion;
 		this.categoria = categoria;
 		this.horas = horas;
-		this.precio = precio;
+		this.precio_total = precio;
 	}
 	
 	
@@ -69,14 +69,17 @@ public class Servicio {
 		this.horas = horas;
 	}
 
-	public Double getPrecio() {
-		return precio;
+
+
+	
+	public Double getPrecio_total() {
+		return precio_total;
 	}
 
-	public void setPrecio(Double precio) {
-		this.precio = precio;
+	public void setPrecio_total(Double precio_total) {
+		this.precio_total = precio_total;
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(name="profesional_id")
 	public Usuario getProfesional() {
