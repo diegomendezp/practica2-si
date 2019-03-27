@@ -4,23 +4,19 @@
   <meta charset="UTF-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <link rel="stylesheet" href="/css/styles.css"></link>
   <title>Document</title>
 </head>
 <body>
   <div id="uno">
     <h2>Consulta un servicio por id</h2>
-    <form action="javascript:getPeliById();">
-        Identificador de la pel&iacute;cula a cargar:&nbsp;<input id='idpeli' type='text'/>
+    <form action="javascript:getServicioById();">
+        Identificador del servicio a cargar<input id='idservicio' type='text'/>
         <input type="submit"/>
     </form>
-    <h2>Consulta una peli por t&iacute;tulo</h2>
-    <form action="javascript:getPelisByTitulo();">
-        T&iacute;tulo de la pel&iacute;cula a cargar:&nbsp;<input id='titulo-form' type='text'/>
-        <input type="submit"/>
-    </form>
-    <p class="peli-id">El identificador es : </p>
-    <p class="peli-content">El enlace es : </p>
+    <ul id="singleService"></ul>
 </div>
 
 <br/>
@@ -36,10 +32,13 @@
 
 <div id="introducir">
     <h2>Nuevo servicio</h2>
-    <form id="nuevapeli" action="javascript:addPeli();">
-        T&iacute;tulo:&nbsp;<input name="titulo" id="titulo" type="text"/>
-        IMDB:&nbsp;<input name="imdb" id="imdb" type="text"/>
-        ID de director:&nbsp;<input name="director" id="director" type="text"/>
+    <form id="nuevo-servicio" action="javascript:addServicio();">
+        Nombre<input name="nombre" id="nombre" type="text"/>
+        Descripcion<input name="descripcion" id="descripcion" type="text"/>
+        Categoria<input name="categoria" id="categoria" type="text"/>
+        Horas<input name="horas" id="horas" type="number"/>
+        Precio<input name="precio" id="precio" type="number"/>
+        ID Profesional <input name="profesional" id="profesional" type="text"/>
         <input type="submit"/>
     </form>
 </div>
