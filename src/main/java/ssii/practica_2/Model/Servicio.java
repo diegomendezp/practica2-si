@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 public class Servicio {
 	private int id;

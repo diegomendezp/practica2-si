@@ -4,16 +4,19 @@
   <meta charset="UTF-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
   <link rel="stylesheet" href="/css/styles.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="/js/components.js"></script>
- <script src="/js/index.js"></script>
+  <script src="/js/filters.js"></script>
+  <script src="/js/index.js"></script>
+  <script src="/js/admin.js"></script>
   <title>Autónomos Network</title>
 </head>
 <body>
   <nav>
     <div class='nav-main'>
-      <p class='nav-title' onclick="displayHome()">aN</p>
+      <p class='nav-title' onclick="displayHome('ANALYST')">aN</p>
     </div>
     <div id='user-menu'>
       <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
@@ -23,8 +26,8 @@
       </ul>
     </div>
   </nav>
+  
   <div id='main'>
-
   </div>
   <!-- <div id="new-service-button"><img src='/images/new.png'/></div> -->
 

@@ -60,21 +60,21 @@ window.onload = () => {
     }
   };
 
-  apiHandler.getFullList()
-    .then((data) => {
-      info = data;
-      // servicesNavigation.onclick = ((e) => {
-      //   displayServices(info);
-      // });
-      // displayServices(info)
-    });
+  // apiHandler.getFullList()
+  //   .then((data) => {
+  //     info = data;
+  //     // servicesNavigation.onclick = ((e) => {
+  //     //   displayServices(info);
+  //     // });
+  //     // displayServices(info)
+  //   });
   displayHome();
 };
 
-const displayHome = () => {
+const displayHome = (role='CUSTOMER') => {
   const main = document.getElementById('main');
   if (rol) return displayServices(info);
-  main.innerHTML = getHome();
+  main.innerHTML = getHome(role);
 };
 
 
@@ -147,13 +147,13 @@ const renderCategoryOptions = () => {
 
 const displaySingleService = (id, services) => {
   const browser = document.querySelector('.browser');
-  browser.style.display = 'none';
-  apiHandler.getOneRegister(id)
-    .then((service) => {
-      services.innerHTML = '';
-      const container = document.querySelector('.container');
-      container.innerHTML = `<div class="single-service"><div class="single-service-description"><h2>${service.name}</h2><h6>User: ${service.author}</h6><h6>Category: ${service.category}</h6><p>Price: ${service.price}</p><p>Description: ${service.description}</p></div><img class="single-map" src="./public/images/map.png" alt="map"/> <button class="apply" onclick="openModal(${service.id})">Apply</button></div>`;
-    });
+  if(browser)  browser.style.display = 'none';
+  // apiHandler.getOneRegister(id)
+  //   .then((service) => {
+  //     services.innerHTML = '';
+  //     const container = document.querySelector('.container');
+  //     container.innerHTML = `<div class="single-service"><div class="single-service-description"><h2>${service.name}</h2><h6>User: ${service.author}</h6><h6>Category: ${service.category}</h6><p>Price: ${service.price}</p><p>Description: ${service.description}</p></div><img class="single-map" src="./public/images/map.png" alt="map"/> <button class="apply" onclick="openModal(${service.id})">Apply</button></div>`;
+  //   });
 };
 
 
