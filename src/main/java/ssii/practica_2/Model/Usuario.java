@@ -87,7 +87,7 @@ public class Usuario {
 		this.ciudad_residencia = ciudad_residencia;
 	}
 	
-	@OneToMany(mappedBy = "profesional")
+	@OneToMany(mappedBy = "profesional",fetch = FetchType.EAGER)
 	public List<Servicio> getServicios() {
 		return servicios;
 	}
@@ -115,7 +115,6 @@ public class Usuario {
 		this.solicitudes = solicitudes;
 	}
 	
-
 	
 	
 	

@@ -1,18 +1,67 @@
 // Nicolae Alexe y Diego Méndez
 
-const getService = s => `<div class="service" serviceId='${s.id}'><img class="map" src="./public/images/map.png" alt="map" />
+const getService = (
+  s,
+  showButtons = true,
+  showPrice = true
+) => `<div class="service" serviceId='${
+  s.id
+}'><img class="map" src="./images/map.png" alt="map" />
                               <div class="service-description">
-                                  <p class='service-status'><span class=${s.status === 'Pendiente' ? 'pending' : s.status === 'Aceptada' ? 'accepted' : s.status === 'Rechazada' ? 'rejected' : 'notResponded'}>${s.status}</span></p>
-                                  <p class='service-category'>${s.category}</p>
-                                  <h3>${s.name}</h3>
-                                  <p class='service-price'>${s.price} $</p>
-                                  <div class="service-buttons"><button class="see-more" id="${s.id}">More</button><button class="apply" onclick="openModal(${s.id})">Apply</button></div>
+                                  ${
+                                    s.estado
+                                      ? `<p class='service-estado'><span class=${
+                                          s.estado === "Pendiente"
+                                            ? "pending"
+                                            : s.estado === "Aceptada"
+                                            ? "accepted"
+                                            : s.estado === "Rechazada"
+                                            ? "rejected"
+                                            : "notResponded"
+                                        }>${s.estado}</span></p>`
+                                      : ""
+                                  }
+                                  <p class='service-category'>${s.categoria}</p>
+                                  <h3 onclick='displayServiceView(${s.id})'>${
+  s.nombre
+}</h3>
+                                  <p class='service-author'>Ofrecido por: <span>${
+                                    s.profesional.nombre
+                                  }</span></p>
+                                  ${
+                                    showPrice
+                                      ? `<p class='service-price'><span>${
+                                          s.precio_acumulado
+                                            ? "Total: "
+                                            : s.solicitudesTotales
+                                            ? "Solicitudes: "
+                                            : ""
+                                        }</span>${
+                                          s.precio_acumulado
+                                            ? s.precio_acumulado + " €"
+                                            : s.solicitudesTotales
+                                            ? s.solicitudesTotales
+                                            : s.precio_total + " €"
+                                        } </p>`
+                                      : ""
+                                  }
+                                  ${
+                                    showButtons
+                                      ? `<div class="service-buttons"><button class="see-more" id="${
+                                          s.id
+                                        }">More</button><button class="apply" onclick="openModal(${
+                                          s.id
+                                        })">Apply</button></div>`
+                                      : ""
+                                  }
                               </div>
                             </div>`;
 
 const getModalService = s => `<p class='modal-pretitle'>Solicitando servicio...</p>
                                 <div id='modal-body'>
-                                  <h3>${s.name}</h3><p>User: ${s.author}</p><p>${s.description}</p>
+                                  <h3>${s.name}</h3><p>User: ${
+  s.author
+}</p><p>${s.description}</p>
                                 </div>
                                 <div class='modal-selects'>
                                   <input placeholder='Choose date: ' type="date" />
@@ -21,24 +70,36 @@ const getModalService = s => `<p class='modal-pretitle'>Solicitando servicio...<
                                 <div class='modal-buttons'><button onclick='sendRequest()'>Solicitar!</button></div>
                                 `;
 
-const getServiceConfirmation = () => '<div class=\'request-info\'><h2>Solicitud enviada!</h2><h3>Estado: Pendiente</h3><p>Comprueba tu email para mas detalles.</p> </div>';
+const getServiceConfirmation = () =>
+  "<div class='request-info'><h2>Solicitud enviada!</h2><h3>Estado: Pendiente</h3><p>Comprueba tu email para mas detalles.</p> </div>";
 
-const getHome = () => `<img class='bg-img' src='./public/images/profesionales2.jpg'/>
+const getHome = (
+  role = "CUSTOMER"
+) => `<img class='bg-img' src='./images/profesionales2.jpg'/>
                         <div class='bg-cover'></div>
                         <div class='container-middle'>
                         <div class='home'>
                             <h1 class='home-title fadeInLeftBig'>Autonomos Network</h1>
                             <div class='home-body'>
                                 <p class='home-body-title'>Who are you?</p>
-                                <div class='home-body-options'>
+                                ${
+                                  role === "CUSTOMER"
+                                    ? `<div class='home-body-options'>
                                     <button onclick="changeRol('profesional')">Profesional</button>
                                     <button onclick="changeRol('client')">Client</button>
-                                </div>
+                                </div>`
+                                    : `<div class='home-body-options'>
+                                <button onclick="displayServicios()">Servicios</button>
+                                <button onclick="displayProfesionales()">Profesionales</button>
+                            </div>`
+                                }
 
                             </div>
                         </div>`;
 
-const getServicesPage = () => `<div class='browser'>
+const getServicesPage = (browser = true, filters = false) => `${
+  browser
+    ? `<div class='browser'>
                                     <input type="text" id='search-input' oninput="filterServices(this.value)" placeholder="Buscar servicios..." />
                                     <select name="category" id="category" class='select' onchange="categoryChange(this.value)">
                                     </select>
@@ -46,7 +107,16 @@ const getServicesPage = () => `<div class='browser'>
                                     <div class='modal-selects'>
                                         <input id='date-filter'  type="date" />
                                     </div>                                    
-                                </div>
+                                </div>`
+    : ""
+}
+                                ${
+                                  filters
+                                    ? `<div id='filtersContainer'><select name="filters" id="filters" class='select' onchange="filterChange(this)">
+                                    
+                                </select></div>`
+                                    : ""
+                                }
                                 <div class="container">
                                     <div class="services"></div>
                                 </div>`;
@@ -62,3 +132,20 @@ const getModalCancelation = id => `<p class='modal-pretitle'>Cancelando servicio
     <button onclick="cancelService(${id})">Confirmar</button>
 
             `;
+
+const getTabs = () => `<div class='tabs'>
+            <ul class='tabs-list'>
+              <li class='tabs-list-item' id='serviciosTab' onclick="displayServicios()">Servicios</li>
+              <li class='tabs-list-item' id='profesionalesTab' onclick="displayProfesionales()">Profesionales</li>
+            </ul>
+          </div>`;
+
+const getProfesional = p => (
+  `<div class="prof">
+    <img class="prof-img" src="/images/user.jpg" />
+    <div class="prof-info">
+      <p class='prof-name'>${p.profesional.nombre}</p>
+      <p class='prof-solicitudes'>${p.solicitudes.length} solicitudes <i class="fas fa-arrow-right"></i></p>
+    </div>
+  </div>`
+);
