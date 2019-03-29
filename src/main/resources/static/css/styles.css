@@ -716,6 +716,43 @@ footer li {
   width: 50px;
   height: 50px;
 }
+
+#nuevo-servicio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
+#nuevo-servicio button{
+  min-height: 30px;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s;
+}
+
+#nuevo-servicio input {
+  padding: 10px;
+  border: 0;
+  border-bottom: 1px solid grey;
+  font-size: 1rem;
+  width: 15%;
+}
+
+#nuevo-servicio label {
+  font-size: 1rem;
+  width: 15%;
+}
+
+.center-div {
+  width: 90%;
+  margin: 0 auto;
+}
+
 @media only screen and (max-width: 680px) {
   .service {
     width: 100%;
@@ -797,7 +834,14 @@ footer li {
     font-size: 25px;
     font-weight: bold;
   }
+
+  #nuevo-servicio input {
+    width: 80%;
+  }
 }
+
+
+
 
 @media only screen and (min-width: 681px) and (max-width: 768px) {
   .service {
@@ -821,6 +865,10 @@ footer li {
 
   .single-service {
     width: 100%;
+  }
+
+  #nuevo-servicio input {
+    width: 30%;
   }
 }
 
