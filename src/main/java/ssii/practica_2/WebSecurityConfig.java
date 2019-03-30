@@ -34,8 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.csrf()
         		.disable()
             .authorizeRequests()
-                .antMatchers("/**","resources/**").permitAll()
+                .antMatchers("/registration/**","resources/**").permitAll()
                 .anyRequest().authenticated()
+                .antMatchers("/admin").hasRole("ANALYST")
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -54,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService);
+//        .passwordEncoder(bCryptPasswordEncoder());
     }
 }

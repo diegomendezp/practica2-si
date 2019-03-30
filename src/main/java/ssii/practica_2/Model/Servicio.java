@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Formula;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Servicio {
 	private int id;
@@ -84,6 +86,7 @@ public class Servicio {
 
 	@ManyToOne
 	@JoinColumn(name="profesional_id")
+	@JsonIgnoreProperties("servicios")
 	public Usuario getProfesional() {
 		return profesional;
 	}

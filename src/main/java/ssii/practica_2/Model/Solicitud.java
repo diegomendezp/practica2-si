@@ -2,6 +2,8 @@ package ssii.practica_2.Model;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class Solicitud {
 	private int id;
@@ -40,6 +42,7 @@ public class Solicitud {
 	
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
+	@JsonIgnoreProperties("solicitudes")
 	public Usuario getCliente() {
 		return cliente;
 	}
