@@ -1,7 +1,7 @@
 package ssii.practica_2.Model;
 
 import java.util.List;
-import java.util.Set;
+
 
 import javax.persistence.*;
 

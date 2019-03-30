@@ -4,9 +4,78 @@
   <meta charset="UTF-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <link rel="stylesheet" href="/css/styles.css"></link>
   <title>Document</title>
 </head>
 <body>
-  
+        <nav>
+                <div class='nav-main'>
+                  <p class='nav-title' onclick="displayHome('ANALYST')">aN</p>
+                </div>
+                <div id='user-menu'>
+                  <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
+                  <ul id="user-menu-navigation">
+                    <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
+                    <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
+                  </ul>
+                </div>
+              </nav>
+              <div id='main'>
+  <div class="center-div">
+      <div id="uno">
+        <h2>Consulta un servicio por id</h2>
+        <form action="javascript:getServicioById();">
+            Identificador del servicio a cargar<input id='idservicio' type='text'/>
+            <input type="submit"/>
+        </form>
+        <ul id="singleService"></ul>
+    </div>
+    
+    <br/>
+    
+    <div id="todos">
+        <h2>Ver todos los servicios</h2>
+        <p><a href="javascript:displayServices();">Cargar todos los servicios</a></p>
+        
+        <ul id="results" class="services"></ul>
+    </div>
+    
+    <br/>
+    
+    <div id="introducir">
+        <h2>Nuevo servicio</h2>
+        <form id="nuevo-servicio" action="javascript:addServicio();">
+            <label for="service-name">Nombre</label><input name="nombre" id="nombre" type="text"/>
+            <label for="description">Descripcion</label><input name="descripcion" id="descripcion" type="text"/>
+            <label for="category">Categoria</label><input name="categoria" id="categoria" type="text"/>
+            <label for="hours">Horas</label><input name="horas" id="horas" type="number"/>
+            <label for="price">Precio</label><input name="precio" id="precio" type="number"/>
+            <label for="professional-id">ID Profesional </label><input name="profesional" id="profesional" type="text"/>
+            <input type="submit"/>
+        </form>
+    </div>
+  </div>
+</div>
+<footer>
+        <ul class="contact-us"> Contáctanos
+          <li>Mail: anetwork@gmail.com</li>
+          <li>Tel: 916578998</li>
+        </ul>
+        <ul class="horario"> Horario
+          <li>OPEN MON-SAT</li>
+          <li>09AM-18PM</li>
+        </ul>
+    
+    
+        <div class="mailing-list"> Newsletter
+          <input type="text" name="footer-email" id="footer-email" placeholder="Email address"></input>
+          <button id="footer-btn">Subscríbete</button>
+        </div>
+    
+      </footer>
+<script src="/js/APIHandler.js"></script>
+<script src="/js/profesional.js"></script>
 </body>
 </html>

@@ -15,5 +15,10 @@ public class MainController {
     public String inicio(Map<String, Object> model) {
         return "index";
     }
+    
+    @RequestMapping("/profesional")
+    public String profesional(Map<String, Object> model) {
+        return "professional";
+    }
 
 }

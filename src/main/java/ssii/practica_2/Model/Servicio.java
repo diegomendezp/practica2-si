@@ -85,8 +85,7 @@ public class Servicio {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="profesional_id")
-	@JsonIgnoreProperties("servicios")
+	@JoinColumn(name = "profesional_id")
 	public Usuario getProfesional() {
 		return profesional;
 	}
