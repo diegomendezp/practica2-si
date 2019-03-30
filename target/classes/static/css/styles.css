@@ -6,13 +6,31 @@ body {
   font-size: 20px;
   font-family: "Roboto", sans-serif;
 }
+a{
+  text-decoration: none;
+  color:unset;
+}
 input {
   background: white;
 }
 
 #main {
   padding-top: 75px;
-  min-height: calc(100vh - 75px);
+  min-height:calc(100vh - 75px);
+}
+
+#noAutorizado{
+  height:calc(100vh - 75px);
+  display:flex;
+  justify-content: center;
+  color:white;
+}
+#noAutorizado > div{
+  width:350px;
+}
+#noAutorizado img{
+  width:350px;
+
 }
 
 #user-logo {
@@ -241,6 +259,10 @@ nav {
   font-size: 18px;
   color: black;
 }
+#user-menu-navigation a{
+  text-decoration: none;
+  color:rgb(202, 15, 15);
+}
 .nav-link {
   font-size: 1rem;
   cursor: pointer;
@@ -251,6 +273,10 @@ nav {
 }
 .nav-link.exit {
   color: black;
+}
+#logout{
+  text-decoration: none;
+
 }
 .nav-link:hover {
   border-bottom: 2px solid rgb(32, 150, 255);

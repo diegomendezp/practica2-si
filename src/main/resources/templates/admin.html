@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
   <link rel="stylesheet" href="/css/styles.css"></link>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/js/APIHandler.js"></script>
   <script src="/js/components.js"></script>
   <script src="/js/filters.js"></script>
   <script src="/js/index.js"></script>
@@ -17,13 +19,11 @@
   <nav>
     <div class='nav-main'>
       <p class='nav-title' onclick="displayHome('ANALYST')">aN</p>
-      <a href='/logout'>logout</a>
     </div>
     <div id='user-menu'>
       <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
       <ul id="user-menu-navigation">
-        <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
-        <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
+        <a href='/logout'><li class="nav-link" id='logout'>Cerrar sesion</li></a>
       </ul>
     </div>
   </nav>

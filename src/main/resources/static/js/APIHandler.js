@@ -8,7 +8,7 @@ class APIHandler {
   getFullList() {
     return axios
       .get(`${this.BASE_URL}/servicios`)
-      .then(services => services.data);
+      .then(services => services.data._embedded.servicios);
   }
 
   getOneRegister(id) {
@@ -22,5 +22,9 @@ class APIHandler {
 
   deleteOneRegister(id) {
     return axios.delete(`${this.BASE_URL}/servicios/${id}`);
+  }
+
+  getCurrentUser(){
+    return axios.get(`${this.BASE_URL}/currentUser`).then(user=>user.data)
   }
 }

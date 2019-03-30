@@ -16,9 +16,9 @@ public class MainController {
         return "index";
     }
     
-    @RequestMapping("/profesional")
-    public String profesional(Map<String, Object> model) {
-        return "professional";
-    }
+//    @RequestMapping("/profesional")
+//    public String profesional(Map<String, Object> model) {
+//        return "professional";
+//    }
 
 }

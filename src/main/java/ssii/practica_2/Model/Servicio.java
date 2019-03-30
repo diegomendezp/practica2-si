@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Servicio {
