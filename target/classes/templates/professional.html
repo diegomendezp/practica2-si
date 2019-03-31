@@ -7,18 +7,22 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <link rel="stylesheet" href="/css/styles.css"></link>
+ 
   <title>Document</title>
 </head>
 <body>
         <nav>
                 <div class='nav-main'>
-                  <p class='nav-title' onclick="displayHome('ANALYST')">aN</p>
+                  <p class='nav-title' onclick="displayHome('PROFESSIONAL')">aN</p>
                 </div>
+                <a href='/logout'><li class="nav-link" id='logout'>Cerrar sesion</li></a>
                 <div id='user-menu'>
+                    
                   <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
                   <ul id="user-menu-navigation">
                     <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
                     <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
+                    
                   </ul>
                 </div>
               </nav>
@@ -86,7 +90,7 @@
         </div>
     
       </footer>
-<script src="/js/APIHandler.js"></script>
+      <script src="/js/APIHandler.js"></script>
 <script src="/js/profesional.js"></script>
 </body>
 </html>
