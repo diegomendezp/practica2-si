@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="servicio")
 public class Servicio {
 	private int id;
 	private String nombre;
