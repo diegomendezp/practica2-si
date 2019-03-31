@@ -6,7 +6,7 @@ const getService = (
   showPrice = true,
 ) => `<div class="service" serviceId='${
   s.id
-}'><img class="map" src="./images/map.png" alt="map" />
+}'><img class="map" src="/images/map.png" alt="map" />
                               <div class="service-description">
                                   ${
   s.estado
@@ -45,6 +45,7 @@ const getService = (
     } </p>`
     : ''
 }
+
                                   ${
   showButtons
     ? `<div class="service-buttons"><button class="see-more" id="${

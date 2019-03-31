@@ -31,4 +31,8 @@ class APIHandler {
   getProfessional(url) {
     return axios.get(url).then(result => result.data);
   }
+
+  updateOneRegister(id, service) {
+    return axios.patch(`${this.BASE_URL}/servicios/id`, service);
+  }
 }
