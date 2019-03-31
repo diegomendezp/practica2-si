@@ -65,7 +65,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
                 isAdmin = true;
                 break;
             } else if(grantedAuthority.getAuthority().equals("PROFESSIONAL")) {
-            	isProfessional = true;
+            	isUser = true;
             	break;
             }
         }

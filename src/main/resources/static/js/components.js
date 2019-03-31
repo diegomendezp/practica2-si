@@ -4,13 +4,15 @@ const getService = (
   s,
   showButtons = true,
   showPrice = true,
-) => `<div class="service" serviceId='${
-  s.id
-}'><img class="map" src="/images/map.png" alt="map" />
+) => {
+  const serviceId = s._links.self.href.split('/servicios/')[1];
+  return `<div class="service" serviceId='${
+    s.id
+  }'><img class="map" src="/images/map.png" alt="map" />
                               <div class="service-description">
                                   ${
   s.estado
-    ? `<p class='service-estado'><span class=${
+    ? `<p class='service-status'><span class=${
       s.estado === 'Pendiente'
         ? 'pending'
         : s.estado === 'Aceptada'
@@ -22,7 +24,7 @@ const getService = (
     : ''
 }
                                   <p class='service-category'>${s.categoria}</p>
-                                  <h3 onclick='displayServiceView(${s.id})'>${
+                                  <h3 onclick='displaySingleService(${s.id})'>${
   s.nombre
 }</h3>
                                   <p class='service-author'>Ofrecido por: <span>${
@@ -45,24 +47,25 @@ const getService = (
     } </p>`
     : ''
 }
-
+${rol == 'PROFESSIONAL' ? `<button class="apply" onclick="openDeleteModal(${serviceId})">Borrar</button>` : ''}
                                   ${
   showButtons
-    ? `<div class="service-buttons"><button class="see-more" id="${
-      s.id
-    }">More</button><button class="apply" onclick="openModal(${
-      s.id
-    })">Apply</button></div>`
+    ? `<div class="service-buttons">
+                                     
+                                        <button class="apply" onclick="openModal(${
+  s.id
+})">Apply</button></div>`
     : ''
 }
                               </div>
                             </div>`;
+};
 
 const getModalService = s => `<p class='modal-pretitle'>Solicitando servicio...</p>
                                 <div id='modal-body'>
-                                  <h3>${s.name}</h3><p>User: ${
-  s.author
-}</p><p>${s.description}</p>
+                                  <h3>${s.nombre}</h3><p>User: ${
+  s.profesional.nombre
+}</p><p>${s.descripcion}</p>
                                 </div>
                                 <div class='modal-selects'>
                                   <input placeholder='Choose date: ' type="date" />
@@ -81,12 +84,16 @@ const getHome = (
                         <div class='home'>
                             <h1 class='home-title fadeInLeftBig'>Autonomos Network</h1>
                             <div class='home-body'>
-                                ${role === 'ANALYST' ? "<p class='home-body-title'>Que quieres ver?</p>" : ''}
                                 ${
-  role === 'CUSTOMER'
+  role === 'ANALYST'
+    ? "<p class='home-body-title'>Que quieres ver?</p>"
+    : ''
+}
+                                ${
+  role !== 'ANALYST'
     ? `<div class='home-body-options'>
-                                    <button onclick="">Servicios</button>
-                                    <button onclick="">Solicitudes</button>
+                                    <button onclick="displayServices()">Servicios</button>
+                                    <button onclick="renderRequests()">Solicitudes</button>
                                 </div>`
     : `<div class='home-body-options'>
                                 <button onclick="displayServicios()">Servicios</button>
@@ -140,17 +147,21 @@ const getTabs = () => `<div class='tabs'>
             </ul>
           </div>`;
 
-const getProfesional = p => (
-  `<div class="prof">
+const getProfesional = p => `<div class="prof">
     <img class="prof-img" src="/images/user.jpg" />
     <div class="prof-info">
       <p class='prof-name'>${p.profesional.nombre}</p>
-      <p class='prof-solicitudes'>${p.solicitudes.length} solicitudes <i class="fas fa-arrow-right"></i></p>
+      <p class='prof-solicitudes'>${
+  p.solicitudes.length
+} solicitudes <i class="fas fa-arrow-right"></i></p>
     </div>
-  </div>`
-);
+  </div>`;
+
+const getNoAutorizado = () => {};
 
 
-const getNoAutorizado = () => {
-
-};
+const getNuevoServicioFields = () => `<div id='nuevo-servicio-container'><label for="service-name">Nombre</label><input name="nombre" id="nombre" type="text"/>
+<label for="description">Descripcion</label><input name="descripcion" id="descripcion" type="text"/>
+<label for="category">Categoria</label><input name="categoria" id="categoria" type="text"/>
+<label for="hours">Horas</label><input name="horas" id="horas" type="number"/>
+<label for="price">Precio</label><input name="precio" id="precio" type="number"/> <button id="nuevo-servicio-btn" onclick="addServicio()">Crear nuevo servicio</button></div>`;

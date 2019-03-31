@@ -6,9 +6,9 @@ body {
   font-size: 20px;
   font-family: "Roboto", sans-serif;
 }
-a{
+a {
   text-decoration: none;
-  color:unset;
+  color: unset;
 }
 input {
   background: white;
@@ -16,21 +16,20 @@ input {
 
 #main {
   padding-top: 75px;
-  min-height:calc(100vh - 75px);
+  min-height: calc(100vh - 75px);
 }
 
-#noAutorizado{
-  height:calc(100vh - 75px);
-  display:flex;
+#noAutorizado {
+  height: calc(100vh - 75px);
+  display: flex;
   justify-content: center;
-  color:white;
+  color: white;
 }
-#noAutorizado > div{
-  width:350px;
+#noAutorizado > div {
+  width: 350px;
 }
-#noAutorizado img{
-  width:350px;
-
+#noAutorizado img {
+  width: 350px;
 }
 
 #user-logo {
@@ -44,11 +43,10 @@ input {
 }
 #filtersContainer select {
   padding: 10px 20px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 #filtersContainer select > i {
-  margin-left:5px;
-
+  margin-left: 5px;
 }
 
 .prof {
@@ -185,7 +183,8 @@ img {
   align-items: left;
 }
 
-.service,.prof{
+.service,
+.prof {
   -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 2s; /* Firefox < 16 */
   -ms-animation: fadein 2s; /* Internet Explorer */
@@ -240,14 +239,40 @@ nav {
   font-size: 30px;
 }
 #user-menu {
-  display: none;
+  display: flex;
+  align-items: center;
+}
+
+#nuevo-servicio-container {
+  display: flex;
+  flex-direction: column;
+  padding:10px;
+}
+#nuevo-servicio-container > * {
+  margin-bottom: 5px;
+
+}
+#nuevo-servicio-container > input {
+  padding:10px;
+  border:1px solid rgb(231, 228, 228);
+  border-radius:5px;
+}
+#nuevo-servicio-btn{
+  font-size: 1rem;
+  color:rgb(32, 150, 255) ;
+  margin-top: 20px;
+}
+#nuevo-servicio {
+  margin-right: 5px;
+  visibility: hidden;
+  cursor: pointer;
 }
 #user-menu-navigation {
   display: none;
   width: 120px;
   position: absolute;
   background: white;
-  top: calc(100% -10px);
+  top: calc(100% - 10px);
   left: calc(100% - 125px);
   padding: 5px 0;
   /* display: flex; */
@@ -259,9 +284,9 @@ nav {
   font-size: 18px;
   color: black;
 }
-#user-menu-navigation a{
+#user-menu-navigation a {
   text-decoration: none;
-  color:rgb(202, 15, 15);
+  color: rgb(202, 15, 15);
 }
 .nav-link {
   font-size: 1rem;
@@ -274,9 +299,8 @@ nav {
 .nav-link.exit {
   color: black;
 }
-#logout{
+#logout {
   text-decoration: none;
-
 }
 .nav-link:hover {
   border-bottom: 2px solid rgb(32, 150, 255);
@@ -333,13 +357,19 @@ nav h1 {
   color: grey;
   margin-right: 5px;
 }
-.service-description .service-status {
+
+
+.service-description .service-status,.service-description .service-delete {
   margin: 0;
   color: white;
   font-size: 0.8rem;
   text-align: right;
 }
-.service-description .service-status span {
+.service-description .service-delete {
+  color:red;
+  cursor: pointer;
+}
+.service-description .service-status span,.service-description .service-delete span {
   border-radius: 5px;
   padding: 2px;
 }
@@ -765,7 +795,7 @@ footer li {
   margin-bottom: 2%;
 }
 
-#nuevo-servicio button{
+#nuevo-servicio button {
   min-height: 30px;
   border-width: 0;
   outline: none;
@@ -880,9 +910,6 @@ footer li {
     width: 80%;
   }
 }
-
-
-
 
 @media only screen and (min-width: 681px) and (max-width: 768px) {
   .service {

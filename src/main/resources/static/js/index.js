@@ -1,24 +1,13 @@
 // Nicolae Alexe y Diego Méndez
 
 const apiHandler = new APIHandler('http://localhost:8080');
-let services;
-apiHandler.getFullList()
-  .then((data) => {
-    services = data.map((s) => {
-      const prof = {};
-      apiHandler.getProfessional(s._links.profesional.href)
-        .then((profesional) => {
-          prof.nombre = profesional.nombre;
-        });
-      return { ...s, profesional: prof };
-    });
-  });
-
+let services = [];
 let category = '';
-let seccion;
+let section;
 const searchedValue = '';
-let selectedService = null;
+const selectedService = null;
 let rol;
+let currentUser = {};
 
 // window.onerror = function(e) {
 //   alert("Error caught");
@@ -28,14 +17,27 @@ const sendRequest = () => {
   modal.innerHTML = getServiceConfirmation();
 };
 const openModal = (serviceId) => {
-  selectedService = serviceId;
-  updateModal();
+  updateModal(serviceId);
+  showModal();
+};
+
+const showModal = () => {
   const modal = document.getElementById('myModal');
   modal.style.display = 'block';
 };
+const hideModal = () => {
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'none';
+};
 
-const updateModal = () => {
-  const service = services.find(e => e.id === selectedService);
+const nuevoServicioModal = () => {
+  const modal = document.getElementById('modal-container');
+  modal.innerHTML = getNuevoServicioFields();
+  showModal();
+};
+
+const updateModal = (id) => {
+  const service = services.find(e => e.id === id);
   const modal = document.getElementById('modal-container');
   modal.innerHTML = getModalService(service);
 };
@@ -86,14 +88,17 @@ window.onload = () => {
   };
 
   apiHandler.getCurrentUser().then((user) => {
+    // console.log(user);
+    currentUser = user;
     changeRol(user.role.name);
     displayHome(rol);
     apiHandler.getFullList().then((data) => {
-      // console.log(data);
-      // services = data;
-      // servicesNavigation.onclick = ((e) => {
-      //   displayServices(services);
-      // });
+      data = data.map((e, index) => ({ ...e, id: index }));
+      const servicesWithProfessionals = data.map(e => getServiceWithProfessional(e));
+      Promise.all(servicesWithProfessionals).then((ss) => {
+        if (rol === 'PROFESSIONAL') { ss = ss.filter(e => e.profesional.nombre === currentUser.nombre); }
+        services = ss;
+      });
     });
   });
 };
@@ -104,19 +109,29 @@ const displayHome = (role = 'CUSTOMER') => {
   main.innerHTML = getHome(role || rol);
 };
 
-const displayServices = (data) => {
+const displayServices = (data = services) => {
+  if (rol === 'PROFESSIONAL') { $('#nuevo-servicio').css('visibility', 'visible'); }
   const main = document.getElementById('main');
   main.innerHTML = getServicesPage();
   renderCategoryOptions();
   const container = document.querySelector('.container');
   renderServices(data, container);
 };
+
+const getServiceWithProfessional = service => apiHandler
+  .getProfessional(service._links.profesional.href)
+  .then(profesional => ({ ...service, profesional }))
+  .catch((e) => {
+    console.log(e);
+    window.location = '/home';
+  });
+
 const filterServices = (text = searchedValue) => {
   const data = services
-    .filter(e => e.category.toLowerCase().includes(category.toLowerCase()))
-    .filter(e => e.author.toLowerCase().includes(text.toLowerCase()));
+    .filter(e => e.categoria.toLowerCase().includes(category.toLowerCase()))
+    .filter(e => e.nombre.toLowerCase().includes(text.toLowerCase()));
   const container = document.querySelector('.container');
-  renderServices(data, container);
+  section === 'services' ? renderServices(data, container) : renderRequests(data, container);
 };
 
 const categoryChange = (c) => {
@@ -127,8 +142,7 @@ const categoryChange = (c) => {
 const changeRol = (term) => {
   rol = term;
   hideElementsForClient();
-  const menu = $('#user-menu');
-  menu.show();
+  const menu = $('#user-menu-icon');
   const isMobile = window.matchMedia('only screen and (max-width: 760px)')
     .matches;
 
@@ -136,7 +150,7 @@ const changeRol = (term) => {
     menu.hover((e) => {
       $('#user-menu-navigation').css({ display: 'flex' });
     });
-    menu.mouseleave(() => {
+    $('#user-menu').mouseleave(() => {
       $('#user-menu-navigation').hide();
     });
   } else {
@@ -173,7 +187,7 @@ const renderCategoryOptions = () => {
   const select = document.querySelector('#category');
   const categories = [];
   services
-    .map(e => e.category)
+    .map(e => e.categoria)
     .map(e => !categories.includes(e) && categories.push(e));
   // rol === 'profesional' && [''].map(e => categories.push(e))
   const options = categories.map(c => `<option value=${c}>${c}</option>`);
@@ -183,18 +197,26 @@ const renderCategoryOptions = () => {
   ].join('');
 };
 
-const displaySingleService = (id, services) => {
+const displaySingleService = (id) => {
   const browser = document.querySelector('.browser');
   if (browser) browser.style.display = 'none';
-  // apiHandler.getOneRegister(id)
-  //   .then((service) => {
-  //     services.innerHTML = '';
-  //     const container = document.querySelector('.container');
-  //     container.innerHTML = `<div class="single-service"><div class="single-service-description"><h2>${service.name}</h2><h6>User: ${service.author}</h6><h6>Category: ${service.category}</h6><p>Price: ${service.price}</p><p>Description: ${service.description}</p></div><img class="single-map" src="./public/images/map.png" alt="map"/> <button class="apply" onclick="openModal(${service.id})">Apply</button></div>`;
-  //   });
+
+  const service = services.find(e => e.id === id);
+  services.innerHTML = '';
+  const container = document.querySelector('.container');
+  container.innerHTML = `<div class="single-service"><div class="single-service-description"><h2>${
+    service.nombre
+  }</h2><h6>User: ${service.profesional.nombre}</h6><h6>Category: ${
+    service.categoria
+  }</h6><p>Price: ${service.precio_total}</p><p>Description: ${
+    service.descripcion
+  }</p></div><img class="single-map" src="/images/map.png" alt="map"/> <button class="apply" onclick="openModal(${
+    service.id
+  })">Apply</button></div>`;
 };
 
 const renderServices = (data, container) => {
+  section = 'services';
   const services = document.querySelector('.services');
   const browser = document.querySelector('.browser');
   browser.style.display = 'flex';
@@ -206,12 +228,12 @@ const renderServices = (data, container) => {
     : (services.innerHTML = "<div class='no-results'><h3>Not results found</h3></div>");
 
   container.appendChild(services);
-  rol === 'client'
+  rol === 'CUSTOMER'
     && document.querySelectorAll('.see-more').forEach(item => item.addEventListener('click', (e) => {
       displaySingleService(e.currentTarget.id, services);
     }));
   // rol==='profesional'&& seccion ==='services' && $('#new-service-button').show()
-  rol === 'profesional'
+  rol === 'PROFESSIONAL'
     && $('#search-input').attr('placeholder', 'Buscar entre mis servicios...');
 
   seccion = 'services';
@@ -219,7 +241,7 @@ const renderServices = (data, container) => {
 };
 
 const hideElementsForClient = () => {
-  if (rol === 'profesional') $('.service-buttons').hide();
+  if (rol === 'PROFESSIONAL') $('.service-buttons').hide();
   $('.service-status').hide();
 };
 
@@ -232,12 +254,13 @@ const profile = () => {
 };
 
 const renderRequests = () => {
+  section = 'solicitudes';
   $('#new-service-button').hide();
   displayServices(services);
   $('.service-status').show();
   const buttons = document.querySelectorAll('.service-buttons');
   for (let i = 0; i < buttons.length; i++) {
-    if (rol === 'profesional') {
+    if (rol === 'PROFESSIONAL') {
       buttons[i].style.display = 'flex';
       buttons[i].innerHTML = '<button class="accept" onclick="changeStatus(this)">Aceptar</button><button class="decline" onclick="renderCancelation(this)">Rechazar</button>';
     } else {
@@ -246,7 +269,6 @@ const renderRequests = () => {
     }
   }
   $('#search-input').attr('placeholder', 'Buscar entre mis solicitudes...');
-  seccion = 'requests';
 };
 
 const changeStatus = (e, text) => {
@@ -286,3 +308,74 @@ const cancelService = (id) => {
 };
 
 const update = e => e.preventDefault();
+
+
+const addServicio = () => apiHandler.getCurrentUser()
+  .then((user) => {
+    const formData = {};
+
+    formData.nombre = $('#nombre').val();
+    formData.descripcion = $('#descripcion').val();
+    formData.categoria = $('#categoria').val();
+    formData.horas = $('#horas').val();
+    formData.precio_total = $('#precio').val();
+    // Para el usuario hay que enviar la URI completa al objeto existente:
+    formData.profesional = `http://localhost:8080/usuarios/${user.id}`;
+    apiHandler.createOneRegister(formData)
+      .then(() => {
+        console.log('Service added');
+        hideModal();
+        apiHandler.getCurrentUser().then((user) => {
+          // console.log(user);
+          currentUser = user;
+          changeRol(user.role.name);
+          displayHome(rol);
+          apiHandler.getFullList().then((data) => {
+            data = data.map((e, index) => ({ ...e, id: index }));
+            const servicesWithProfessionals = data.map(e => getServiceWithProfessional(e));
+            Promise.all(servicesWithProfessionals).then((ss) => {
+              if (rol === 'PROFESSIONAL') { ss = ss.filter(e => e.profesional.nombre === currentUser.nombre); }
+              services = ss;
+            });
+          });
+        });
+      })
+      .catch(err => console.error(err));
+  });
+
+openDeleteModal = (id) => {
+  document.querySelector('#delete-modal').style.display = 'block';
+  changeContent(document.querySelector('#delete-id'), id);
+};
+
+closeDeleteModal = () => {
+  document.querySelector('#delete-modal').style.display = 'none';
+};
+
+deleteService = () => {
+  const id = document.querySelector('#delete-id').innerHTML;
+  console.log(id);
+  apiHandler.deleteOneRegister(id)
+    .then(() => {
+      closeDeleteModal();
+      apiHandler.getCurrentUser().then((user) => {
+        // console.log(user);
+        currentUser = user;
+        changeRol(user.role.name);
+        displayHome(rol);
+        apiHandler.getFullList().then((data) => {
+          data = data.map((e, index) => ({ ...e, id: index }));
+          const servicesWithProfessionals = data.map(e => getServiceWithProfessional(e));
+          Promise.all(servicesWithProfessionals).then((ss) => {
+            if (rol === 'PROFESSIONAL') { ss = ss.filter(e => e.profesional.nombre === currentUser.nombre); }
+            services = ss;
+          });
+        });
+      });
+    });
+};
+
+const changeContent = (selector, content) => {
+  selector.innerHTML = '';
+  selector.innerHTML = content;
+};
