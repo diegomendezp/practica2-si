@@ -18,9 +18,10 @@
       <p class='nav-title' onclick="displayHome()">aN</p>
     </div>
     <div id='user-menu'>
+      <span id='nuevo-servicio' onclick="nuevoServicioModal()">Nuevo servicio</span>
       <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
       <ul id="user-menu-navigation">
-        <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
+        <li class="nav-link" id='nav-link-myServices' onclick='displayServices()'>Mis servicios</li>
         <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
         <a  id='logout'  href='/logout'><li class='nav-link' >Cerrar sesion</li></a>
       </ul>
@@ -40,6 +41,11 @@
       </div>
 
     </div>
+  </div>
+  <div class="delete-modal" id="delete-modal">
+      <p>¿Estás seguro de que deseas borrar este servicio? <span id="delete-id"></span></p>
+      <button onclick="deleteService()">Sí</button>
+      <button onclick="closeDeleteModal()">No</button>
   </div>
   <footer>
     <ul class="contact-us"> Contáctanos

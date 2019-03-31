@@ -19,7 +19,7 @@ const serviciosFilters = {
     applied: false,
     filter: filterByMasIngresos,
     type: 'servicios',
-  },
+  }
 };
 const profesionalesFilters = {
   profesionalesMasDemandados: {
@@ -27,10 +27,12 @@ const profesionalesFilters = {
     applied: true,
     filter: filterProfesionalesByMasDemandados,
     type: 'profesionales',
-  },
+  }
 };
+
 const filterApplied = 'MasDemand';
-const services = [
+
+const services2 = [
   {
     nombre: 'test',
     id: 1,
@@ -133,15 +135,11 @@ const services = [
   },
 ];
 
-// const services;
-// apiHandler.getFullList()
-//   .then(data => services = data)
-
-window.addEventListener('DOMContentLoaded', (event) => {
-  const main = document.getElementById('main');
-  main.innerHTML = getServicesPage();
-  displayHome('ANALYST');
-});
+// window.addEventListener('DOMContentLoaded', (event) => {
+//   const main = document.getElementById('main');
+//   main.innerHTML = getServicesPage();
+//   displayHome('ANALYST');
+// });
 
 const displayServicios = () => {
   page = 'servicios';
