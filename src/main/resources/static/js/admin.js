@@ -219,3 +219,26 @@ const displayServiceView = (serviceId) => {
     service.id
   })">Apply</button></div>`;
 };
+
+
+const displayRe = (id) => {
+  const profesional = services.filter(service => service.id === id)[0].profesional;
+  const ser = document.querySelector('.services');
+  ser.innerHTML = '';
+  const container = document.querySelector('.container');
+  services.forEach((service) => {
+    apiHandler.getProfessional(service._links.profesional.href)
+      .then((p) => {
+        if (profesional.email == p.email) {
+          service.solicitudes.forEach((request) => {
+            ser.innerHTML += `<div class="prof">
+            <div class="prof-info">
+              <p class='prof-name'>Fecha solicitud: ${request.fecha_solicitud}</p>
+              <p class='prof-name'>Estado solicitud: ${request.estado}</p>
+            </div>
+          </div>`;
+          });
+        }
+      });
+  });
+};

@@ -151,9 +151,9 @@ const getProfesional = p => `<div class="prof">
     <img class="prof-img" src="/images/user.jpg" />
     <div class="prof-info">
       <p class='prof-name'>${p.profesional.nombre}</p>
-      <p class='prof-solicitudes'>${
+      <p onclick="displayRe(${p.id})" class='prof-solicitudes'>${
   p.solicitudes.length
-} solicitudes <i class="fas fa-arrow-right"></i></p>
+} solicitudes <i onclick="displayRe(${p.id})" id="${p.profesional.nombre}" class="fas fa-arrow-right"></i></p>
     </div>
   </div>`;
 
