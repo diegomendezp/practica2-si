@@ -1,4 +1,3 @@
-
 let filteredItems = [];
 let page = 'servicios';
 const serviciosFilters = {
@@ -30,112 +29,109 @@ const profesionalesFilters = {
   },
 };
 const filterApplied = 'MasDemand';
-const services = [
-  {
-    nombre: 'test',
-    id: 1,
-    descripcion: 'test',
-    categoria: 'Informática',
-    horas: 50,
-    precio_total: 100,
-    profesional: {
-      nombre: 'zico',
-    },
-    solicitudes: [
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 50,
-        estado: 'Pendiente',
-        descripcion_estado: null,
-      },
-    ],
-  },
-  {
-    nombre: 'Reparación de ordenadores',
-    descripcion: 'Reparamos todo tipo de dispositivos',
-    categoria: 'Informática',
-    horas: 50,
-    id: 2,
-    precio_total: 100,
-    profesional: {
-      nombre: 'Diego',
-    },
-    solicitudes: [
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 50,
-        estado: 'Pendiente',
-        descripcion_estado: null,
-      },
-    ],
-  },
-  {
-    nombre: 'prueba de servicio',
-    descripcion: 'prueba',
-    categoria: 'Diseño',
-    horas: 50,
-    id: 3,
-    precio_total: 10,
-    profesional: {
-      nombre: 'Nico',
-    },
-    solicitudes: [],
-  },
+// let services = [
+//   {
+//     nombre: 'test',
+//     id: 1,
+//     descripcion: 'test',
+//     categoria: 'Informática',
+//     horas: 50,
+//     precio_total: 100,
+//     profesional: {
+//       nombre: 'zico',
+//     },
+//     solicitudes: [
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 50,
+//         estado: 'Pendiente',
+//         descripcion_estado: null,
+//       },
+//     ],
+//   },
+//   {
+//     nombre: 'Reparación de ordenadores',
+//     descripcion: 'Reparamos todo tipo de dispositivos',
+//     categoria: 'Informática',
+//     horas: 50,
+//     id: 2,
+//     precio_total: 100,
+//     profesional: {
+//       nombre: 'Diego',
+//     },
+//     solicitudes: [
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 50,
+//         estado: 'Pendiente',
+//         descripcion_estado: null,
+//       },
+//     ],
+//   },
+//   {
+//     nombre: 'prueba de servicio',
+//     descripcion: 'prueba',
+//     categoria: 'Diseño',
+//     horas: 50,
+//     id: 3,
+//     precio_total: 10,
+//     profesional: {
+//       nombre: 'Nico',
+//     },
+//     solicitudes: [],
+//   },
 
-  {
-    nombre: 'Veterinario',
-    descripcion: 'Veterinario a domicilio',
-    categoria: 'Veterinaria',
-    horas: 5,
-    id: 4,
-    precio_total: 15,
-    profesional: {
-      nombre: 'Diego',
-    },
-    solicitudes: [
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 5,
-        estado: 'Confirmada',
-        descripcion_estado: null,
-      },
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 5,
-        estado: 'Confirmada',
-        descripcion_estado: null,
-      },
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 50,
-        estado: 'No repondida',
-        descripcion_estado: null,
-      },
-      {
-        fecha_solicitud: '15-03-2019',
-        fecha_servicio: '16-03-19',
-        direccion: 'Paseo de la Chopera 14, Madrid',
-        importe: 10,
-        estado: 'Pendiente',
-        descripcion_estado: null,
-      },
-    ],
-  },
-];
+//   {
+//     nombre: 'Veterinario',
+//     descripcion: 'Veterinario a domicilio',
+//     categoria: 'Veterinaria',
+//     horas: 5,
+//     id: 4,
+//     precio_total: 15,
+//     profesional: {
+//       nombre: 'Diego',
+//     },
+//     solicitudes: [
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 5,
+//         estado: 'Confirmada',
+//         descripcion_estado: null,
+//       },
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 5,
+//         estado: 'Confirmada',
+//         descripcion_estado: null,
+//       },
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 50,
+//         estado: 'No repondida',
+//         descripcion_estado: null,
+//       },
+//       {
+//         fecha_solicitud: '15-03-2019',
+//         fecha_servicio: '16-03-19',
+//         direccion: 'Paseo de la Chopera 14, Madrid',
+//         importe: 10,
+//         estado: 'Pendiente',
+//         descripcion_estado: null,
+//       },
+//     ],
+//   },
+// ];
 
-// const services;
-// apiHandler.getFullList()
-//   .then(data => services = data)
 
 window.addEventListener('DOMContentLoaded', (event) => {
   const main = document.getElementById('main');
@@ -159,6 +155,7 @@ const displayElements = (filters) => {
   main.innerHTML = getTabs() + getServicesPage(false, true);
   const servicesWrapper = document.querySelector('.services');
   services.innerHTML = '';
+  console.log(filteredItems);
   filteredItems.length > 0
     ? filteredItems.forEach((item) => {
       servicesWrapper.innerHTML

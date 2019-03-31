@@ -1,10 +1,22 @@
 // Nicolae Alexe y Diego Méndez
 
-const apiHandler = new APIHandler("http://localhost:8080");
-let services = [];
-let category = "";
+const apiHandler = new APIHandler('http://localhost:8080');
+let services;
+apiHandler.getFullList()
+  .then((data) => {
+    services = data.map((s) => {
+      const prof = {};
+      apiHandler.getProfessional(s._links.profesional.href)
+        .then((profesional) => {
+          prof.nombre = profesional.nombre;
+        });
+      return { ...s, profesional: prof };
+    });
+  });
+
+let category = '';
 let seccion;
-const searchedValue = "";
+const searchedValue = '';
 let selectedService = null;
 let rol;
 
@@ -12,74 +24,73 @@ let rol;
 //   alert("Error caught");
 // };
 const sendRequest = () => {
-  const modal = document.getElementById("modal-container");
+  const modal = document.getElementById('modal-container');
   modal.innerHTML = getServiceConfirmation();
 };
-const openModal = serviceId => {
+const openModal = (serviceId) => {
   selectedService = serviceId;
   updateModal();
-  const modal = document.getElementById("myModal");
-  modal.style.display = "block";
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'block';
 };
 
 const updateModal = () => {
   const service = services.find(e => e.id === selectedService);
-  const modal = document.getElementById("modal-container");
+  const modal = document.getElementById('modal-container');
   modal.innerHTML = getModalService(service);
 };
 
 window.onresize = () => {
-  const isMobile = window.matchMedia("only screen and (max-width: 760px)")
+  const isMobile = window.matchMedia('only screen and (max-width: 760px)')
     .matches;
 
   if (isMobile) {
-    $("#user-menu-navigation").prepend(
-      '<li class="nav-link" onclick="profile()">Perfil</li>'
+    $('#user-menu-navigation').prepend(
+      '<li class="nav-link" onclick="profile()">Perfil</li>',
     );
-    $("#user-menu-navigation").append(
-      '<li class="nav-link exit" onclick="hideMenu()"><i class="fas fa-times"></i></li>'
+    $('#user-menu-navigation').append(
+      '<li class="nav-link exit" onclick="hideMenu()"><i class="fas fa-times"></i></li>',
     );
   }
 };
 window.onload = () => {
-  const servicesNavigation = document.querySelector(".services-navigation");
+  const servicesNavigation = document.querySelector('.services-navigation');
 
-  const isMobile = window.matchMedia("only screen and (max-width: 760px)")
+  const isMobile = window.matchMedia('only screen and (max-width: 760px)')
     .matches;
 
   if (isMobile) {
-    $("#user-menu-navigation").prepend(
-      '<li class="nav-link" onclick="profile()">Perfil</li>'
+    $('#user-menu-navigation').prepend(
+      '<li class="nav-link" onclick="profile()">Perfil</li>',
     );
-    $("#user-menu-navigation").append(
-      '<li class="nav-link exit" onclick="hideMenu()"><i class="fas fa-times"></i></li>'
+    $('#user-menu-navigation').append(
+      '<li class="nav-link exit" onclick="hideMenu()"><i class="fas fa-times"></i></li>',
     );
   }
   // ********  Modal configuration  ******//
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById('myModal');
 
   // Get the <span> element that closes the modal
-  const span = document.getElementsByClassName("close")[0];
+  const span = document.getElementsByClassName('close')[0];
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = () => {
-    modal.style.display = "none";
+    modal.style.display = 'none';
   };
 
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = event => {
+  window.onclick = (event) => {
     if (event.target == modal) {
-      modal.style.display = "none";
+      modal.style.display = 'none';
     }
   };
 
-  apiHandler.getCurrentUser().then(user => {
-    console.log(user);
+  apiHandler.getCurrentUser().then((user) => {
     changeRol(user.role.name);
     displayHome(rol);
-    apiHandler.getFullList().then(data => {
-      console.log(data)
-      services = data;
+    apiHandler.getFullList().then((data) => {
+      // console.log(data);
+      // services = data;
       // servicesNavigation.onclick = ((e) => {
       //   displayServices(services);
       // });
@@ -87,79 +98,79 @@ window.onload = () => {
   });
 };
 
-const displayHome = (role = "CUSTOMER") => {
-  const main = document.getElementById("main");
+const displayHome = (role = 'CUSTOMER') => {
+  const main = document.getElementById('main');
   // if (rol) return displayServices(services);
-  main.innerHTML = getHome(role ? role : rol);
+  main.innerHTML = getHome(role || rol);
 };
 
-const displayServices = data => {
-  const main = document.getElementById("main");
+const displayServices = (data) => {
+  const main = document.getElementById('main');
   main.innerHTML = getServicesPage();
   renderCategoryOptions();
-  const container = document.querySelector(".container");
+  const container = document.querySelector('.container');
   renderServices(data, container);
 };
 const filterServices = (text = searchedValue) => {
   const data = services
     .filter(e => e.category.toLowerCase().includes(category.toLowerCase()))
     .filter(e => e.author.toLowerCase().includes(text.toLowerCase()));
-  const container = document.querySelector(".container");
+  const container = document.querySelector('.container');
   renderServices(data, container);
 };
 
-const categoryChange = c => {
-  category = c === "all" ? "" : c;
+const categoryChange = (c) => {
+  category = c === 'all' ? '' : c;
   filterServices();
 };
 
-const changeRol = term => {
+const changeRol = (term) => {
   rol = term;
   hideElementsForClient();
-  const menu = $("#user-menu");
+  const menu = $('#user-menu');
   menu.show();
-  const isMobile = window.matchMedia("only screen and (max-width: 760px)")
+  const isMobile = window.matchMedia('only screen and (max-width: 760px)')
     .matches;
 
   if (!isMobile) {
-    menu.hover(e => {
-      $("#user-menu-navigation").css({ display: "flex" });
+    menu.hover((e) => {
+      $('#user-menu-navigation').css({ display: 'flex' });
     });
     menu.mouseleave(() => {
-      $("#user-menu-navigation").hide();
+      $('#user-menu-navigation').hide();
     });
   } else {
-    $("#user-menu-icon").on("click", (e) => {
-      e.stopPropagation()
-      $('#user-menu-navigation').css({ 'display': 'flex' })
+    $('#user-menu-icon').on('click', (e) => {
+      e.stopPropagation();
+      $('#user-menu-navigation').css({ display: 'flex' });
     });
-    $(window).on("click", () => {
-      $('#user-menu-navigation').css({ 'display': 'none' })
+    $(window).on('click', () => {
+      $('#user-menu-navigation').css({ display: 'none' });
     });
   }
 
-  rol === "PROFESSIONAL"
-    ? $("#nav-link-myServices").show()
-    : $("#nav-link-myServices").hide();
+  rol === 'PROFESSIONAL'
+    ? $('#nav-link-myServices').show()
+    : $('#nav-link-myServices').hide();
 };
 
 const displayProfile = () => {
-  const isMobile = window.matchMedia("only screen and (max-width: 760px)")
+  const isMobile = window.matchMedia('only screen and (max-width: 760px)')
     .matches;
 
   if (isMobile) {
-    $("#user-menu-navigation").css({ display: "flex" });
+    $('#user-menu-navigation').css({ display: 'flex' });
   } else {
     profile();
   }
 };
 
 const hideMenu = () => {
-  $("#user-menu-navigation").hide();
+  $('#user-menu-navigation').hide();
 };
 
 const renderCategoryOptions = () => {
-  const select = document.querySelector("#category");
+  const select = document.querySelector('#category');
   const categories = [];
   services
     .map(e => e.category)
@@ -168,13 +179,13 @@ const renderCategoryOptions = () => {
   const options = categories.map(c => `<option value=${c}>${c}</option>`);
   select.innerHTML = [
     "<option value='all'>All categories</option>",
-    ...options
-  ].join("");
+    ...options,
+  ].join('');
 };
 
 const displaySingleService = (id, services) => {
-  const browser = document.querySelector(".browser");
-  if (browser) browser.style.display = "none";
+  const browser = document.querySelector('.browser');
+  if (browser) browser.style.display = 'none';
   // apiHandler.getOneRegister(id)
   //   .then((service) => {
   //     services.innerHTML = '';
@@ -184,98 +195,93 @@ const displaySingleService = (id, services) => {
 };
 
 const renderServices = (data, container) => {
-  const services = document.querySelector(".services");
-  const browser = document.querySelector(".browser");
-  browser.style.display = "flex";
-  services.innerHTML = "";
+  const services = document.querySelector('.services');
+  const browser = document.querySelector('.browser');
+  browser.style.display = 'flex';
+  services.innerHTML = '';
   data.length > 0
-    ? data.forEach(service => {
-        services.innerHTML += getService(service);
-      })
-    : (services.innerHTML =
-        "<div class='no-results'><h3>Not results found</h3></div>");
+    ? data.forEach((service) => {
+      services.innerHTML += getService(service);
+    })
+    : (services.innerHTML = "<div class='no-results'><h3>Not results found</h3></div>");
 
   container.appendChild(services);
-  rol === "client" &&
-    document.querySelectorAll(".see-more").forEach(item =>
-      item.addEventListener("click", e => {
-        displaySingleService(e.currentTarget.id, services);
-      })
-    );
+  rol === 'client'
+    && document.querySelectorAll('.see-more').forEach(item => item.addEventListener('click', (e) => {
+      displaySingleService(e.currentTarget.id, services);
+    }));
   // rol==='profesional'&& seccion ==='services' && $('#new-service-button').show()
-  rol === "profesional" &&
-    $("#search-input").attr("placeholder", "Buscar entre mis servicios...");
+  rol === 'profesional'
+    && $('#search-input').attr('placeholder', 'Buscar entre mis servicios...');
 
-  seccion = "services";
+  seccion = 'services';
   hideElementsForClient();
 };
 
 const hideElementsForClient = () => {
-  if (rol === "profesional") $(".service-buttons").hide();
-  $(".service-status").hide();
+  if (rol === 'profesional') $('.service-buttons').hide();
+  $('.service-status').hide();
 };
 
 const profile = () => {
-  const main = document.querySelector("#main");
+  const main = document.querySelector('#main');
   main.innerHTML = getContainer();
-  const container = document.querySelector(".container");
-  container.classList.add("profile-container");
-  container.innerHTML =
-    '<div class="profile-menu"><h2>Mis datos</h2><p>Tus datos de contacto serán enviados al crear/solicitar un servicio.</p><form onsubmit="update()"><input type="radio" name="Hombre" id="hombre" /> <label id="hombre-label"> Hombre</label><input type="radio" name="Mujer" id="mujer" /> <label> Mujer</label><div class="username"><input type="text" name="username" id="username" value="James"/><input type="text" name="usersubname" id="usersubname" value="Milner"/></div><input type="text" name="email" id="email" value="jamesmilner@yahoo.es"/><div class="direccion"> <input type="text" name="address" value="Calle Mayor" id="direccion"/><input type="tel" name="tel" value="000-999-000" /></div><p>Fecha de nacimiento</p><input type="date" name="" id="date"/><button class="actualizar">Actualizar</button> <p>Modifica tu contraseña</p><div class="pass"><input type="text" name="current" id="current" placeholder="Introduce tu contraseña.."/><input type="text" name="new" id="new" placeholder="Nueva contraseña"/><input type="text" name="newr" id="newr" placeholder="Repite tu contraseña"/></div><button class="actualizar">Actualizar</button></form></div><div class="leave-account"><h3>Si realmente nos quieres dejar...</h3><div>Si eliminas tu cuenta:<ul><li>No podrás acceder a los servicios de Autónomos Network;</li><li>se cancelarán tus reservas</li><li>se eliminarán tus valoraciones</li></ul><button class="delete-account">Eliminar cuenta</button></div></div>';
+  const container = document.querySelector('.container');
+  container.classList.add('profile-container');
+  container.innerHTML = '<div class="profile-menu"><h2>Mis datos</h2><p>Tus datos de contacto serán enviados al crear/solicitar un servicio.</p><form onsubmit="update()"><input type="radio" name="Hombre" id="hombre" /> <label id="hombre-label"> Hombre</label><input type="radio" name="Mujer" id="mujer" /> <label> Mujer</label><div class="username"><input type="text" name="username" id="username" value="James"/><input type="text" name="usersubname" id="usersubname" value="Milner"/></div><input type="text" name="email" id="email" value="jamesmilner@yahoo.es"/><div class="direccion"> <input type="text" name="address" value="Calle Mayor" id="direccion"/><input type="tel" name="tel" value="000-999-000" /></div><p>Fecha de nacimiento</p><input type="date" name="" id="date"/><button class="actualizar">Actualizar</button> <p>Modifica tu contraseña</p><div class="pass"><input type="text" name="current" id="current" placeholder="Introduce tu contraseña.."/><input type="text" name="new" id="new" placeholder="Nueva contraseña"/><input type="text" name="newr" id="newr" placeholder="Repite tu contraseña"/></div><button class="actualizar">Actualizar</button></form></div><div class="leave-account"><h3>Si realmente nos quieres dejar...</h3><div>Si eliminas tu cuenta:<ul><li>No podrás acceder a los servicios de Autónomos Network;</li><li>se cancelarán tus reservas</li><li>se eliminarán tus valoraciones</li></ul><button class="delete-account">Eliminar cuenta</button></div></div>';
 };
 
 const renderRequests = () => {
-  $("#new-service-button").hide();
+  $('#new-service-button').hide();
   displayServices(services);
-  $(".service-status").show();
-  const buttons = document.querySelectorAll(".service-buttons");
+  $('.service-status').show();
+  const buttons = document.querySelectorAll('.service-buttons');
   for (let i = 0; i < buttons.length; i++) {
-    if (rol === "profesional") {
-      buttons[i].style.display = "flex";
-      buttons[i].innerHTML =
-        '<button class="accept" onclick="changeStatus(this)">Aceptar</button><button class="decline" onclick="renderCancelation(this)">Rechazar</button>';
+    if (rol === 'profesional') {
+      buttons[i].style.display = 'flex';
+      buttons[i].innerHTML = '<button class="accept" onclick="changeStatus(this)">Aceptar</button><button class="decline" onclick="renderCancelation(this)">Rechazar</button>';
     } else {
       // buttons[i].style.display = 'none'
-      $(".service-buttons").hide();
+      $('.service-buttons').hide();
     }
   }
-  $("#search-input").attr("placeholder", "Buscar entre mis solicitudes...");
-  seccion = "requests";
+  $('#search-input').attr('placeholder', 'Buscar entre mis solicitudes...');
+  seccion = 'requests';
 };
 
 const changeStatus = (e, text) => {
   const span = $(e)
-    .closest(".service-description")
-    .find(".service-status")
-    .find("span");
-  span.text("Aceptada");
-  span.attr("class", "accepted");
+    .closest('.service-description')
+    .find('.service-status')
+    .find('span');
+  span.text('Aceptada');
+  span.attr('class', 'accepted');
   $(e)
-    .closest(".service-buttons")
+    .closest('.service-buttons')
     .hide();
 };
 
-const renderCancelation = e => {
+const renderCancelation = (e) => {
   const service = $(e)
-    .closest(".service")
-    .attr("serviceId");
-  const modal = document.getElementById("myModal");
-  modal.style.display = "block";
-  $("#modal-container").html(getModalCancelation(service));
+    .closest('.service')
+    .attr('serviceId');
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'block';
+  $('#modal-container').html(getModalCancelation(service));
 };
 
-const cancelService = id => {
-  $("#myModal").hide();
+const cancelService = (id) => {
+  $('#myModal').hide();
   $(`.service[serviceId="${id}"]`)
-    .find(".service-status")
-    .find("span")
-    .attr("class", "rejected");
+    .find('.service-status')
+    .find('span')
+    .attr('class', 'rejected');
   $(`.service[serviceId="${id}"]`)
-    .find(".service-status")
-    .find("span")
-    .text("Rechazada");
+    .find('.service-status')
+    .find('span')
+    .text('Rechazada');
   $(`.service[serviceId="${id}"]`)
-    .find(".service-buttons")
+    .find('.service-buttons')
     .hide();
 };
 
