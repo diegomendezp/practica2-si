@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/styles.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="/js/APIHandler.js"></script>
   <script src="/js/components.js"></script>
  <script src="/js/index.js"></script>
   <title>Autónomos Network</title>
@@ -21,6 +22,7 @@
       <ul id="user-menu-navigation">
         <li class="nav-link" id='nav-link-myServices' onclick='displayServices(info)'>Mis servicios</li>
         <li class='nav-link' onclick="renderRequests()">Solicitudes</li>
+        <a  id='logout'  href='/logout'><li class='nav-link' >Cerrar sesion</li></a>
       </ul>
     </div>
   </nav>

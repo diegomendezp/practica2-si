@@ -10,36 +10,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="/js/APIHandler.js"></script>
   <script src="/js/components.js"></script>
-  <script src="/js/filters.js"></script>
-  <script src="/js/index.js"></script>
-  <script src="/js/admin.js"></script>
+  <script src="/js/noAutorizado.js"></script>
   <title>Autónomos Network</title>
 </head>
 <body>
   <nav>
     <div class='nav-main'>
-      <p class='nav-title' onclick="displayHome('ANALYST')">aN</p>
+      <a href='/home'><p class='nav-title'>aN</p></a>
     </div>
-    <div id='user-menu'>
+    <!-- <div id='user-menu'>
       <img id='user-menu-icon' onclick='displayProfile()' src='/images/user.jpg' />
       <ul id="user-menu-navigation">
         <a href='/logout'><li class="nav-link" id='logout'>Cerrar sesion</li></a>
       </ul>
-    </div>
+    </div> -->
   </nav>
   
   <div id='main'>
-  </div>
-  <!-- <div id="new-service-button"><img src='/images/new.png'/></div> -->
-
-  <div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <div id='modal-container'>
-
+    <img class='bg-img' src='./images/profesionales2.jpg'/>
+    <div class='bg-cover'></div>
+    <div id='noAutorizado' class='container-middle'>
+      <div>
+        <h3>Lo sentimos, no puedes acceder a esta pagina.</h3>
+        <img src="/images/403.jpg" alt="" />
       </div>
-
     </div>
   </div>
   <footer>

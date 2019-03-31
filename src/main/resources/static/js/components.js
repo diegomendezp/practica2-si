@@ -80,12 +80,12 @@ const getHome = (
                         <div class='home'>
                             <h1 class='home-title fadeInLeftBig'>Autonomos Network</h1>
                             <div class='home-body'>
-                                <p class='home-body-title'>Who are you?</p>
+                                ${role === 'ANALYST' ? "<p class='home-body-title'>Que quieres ver?</p>" : ''}
                                 ${
   role === 'CUSTOMER'
     ? `<div class='home-body-options'>
-                                    <button onclick="changeRol('profesional')">Profesional</button>
-                                    <button onclick="changeRol('client')">Client</button>
+                                    <button onclick="">Servicios</button>
+                                    <button onclick="">Solicitudes</button>
                                 </div>`
     : `<div class='home-body-options'>
                                 <button onclick="displayServicios()">Servicios</button>
@@ -148,3 +148,8 @@ const getProfesional = p => (
     </div>
   </div>`
 );
+
+
+const getNoAutorizado = () => {
+
+};

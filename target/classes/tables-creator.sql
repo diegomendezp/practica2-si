@@ -20,7 +20,7 @@ CREATE TABLE `usuario`
   `apellidos` varchar
 (255) DEFAULT NULL,
   `email` varchar
-(255) DEFAULT NULL,
+(255) DEFAULT NULL UNIQUE,
 `perfil_id` int
 (11) DEFAULT NULL,
   `contraseña` varchar
@@ -105,19 +105,22 @@ insert into role
   (id,name)
 values
   (1, 'ANALYST'),
-  (2, 'CUSTOMER');
+  (2, 'CUSTOMER'),
+  (3, 'PROFESSIONAL');
   
 insert into usuario
   (id,nombre,apellidos,email,contraseña,perfil_id,fecha_nacimiento,ciudad_residencia)
 values
   (1, 'Nico', 'Alexe', 'nico@gmail.com', '1234', 1, '11-01-1991', 'Madrid'),
-  (2, 'Diego', 'Mendez', 'diego@gmail.com', '1234', 2, '11-01-1991', 'Madrid');
+  (2, 'Diego', 'Mendez', 'diego@gmail.com', '1234', 2, '11-01-1991', 'Madrid'),
+  (3, 'Marta', 'Sainz', 'marta@gmail.com', '1234', 3, '11-01-1991', 'Madrid');
+
 
 insert into servicio
   (id,nombre,descripcion,categoria,horas,precio_total,profesional_id)
 values
-  (1, 'Reparación de ordenadores', 'Reparamos todo tipo de dispositivos', 'Informática', '50', '100', 1),
-  (2, 'Veterinario', 'Veterinario a domicilio', 'Veterinaria', '5', '15', 2);
+  (1, 'Reparación de ordenadores', 'Reparamos todo tipo de dispositivos', 'Informática', '50', '100', 2),
+  (2, 'Veterinario', 'Veterinario a domicilio', 'Veterinaria', '5', '15', 3);
 
 
 

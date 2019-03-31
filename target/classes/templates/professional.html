@@ -23,6 +23,12 @@
                 </div>
               </nav>
               <div id='main'>
+
+                <div class="center-div" >
+                  <h2 id="professional-name">Bienvenido a tu perfil de profesional</h2>
+                  <p id="professional-id"></p>
+                  <p id="professional-email"></p>
+                </div>
   <div class="center-div">
       <div id="uno">
         <h2>Consulta un servicio por id</h2>
@@ -37,7 +43,7 @@
     
     <div id="todos">
         <h2>Ver todos los servicios</h2>
-        <p><a href="javascript:displayServices();">Cargar todos los servicios</a></p>
+        <p><a href="javascript:displayProfessionalServices();">Cargar todos los servicios</a></p>
         
         <ul id="results" class="services"></ul>
     </div>
@@ -52,7 +58,6 @@
             <label for="category">Categoria</label><input name="categoria" id="categoria" type="text"/>
             <label for="hours">Horas</label><input name="horas" id="horas" type="number"/>
             <label for="price">Precio</label><input name="precio" id="precio" type="number"/>
-            <label for="professional-id">ID Profesional </label><input name="profesional" id="profesional" type="text"/>
             <input type="submit"/>
         </form>
     </div>

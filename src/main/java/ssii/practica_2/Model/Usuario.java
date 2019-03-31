@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 
 
 
 @Entity
+@JsonIgnoreProperties({"servicios","solicitudes"})
 public class Usuario {
 	private int id;
 	private String nombre;
@@ -87,7 +91,8 @@ public class Usuario {
 		this.ciudad_residencia = ciudad_residencia;
 	}
 	
-	@OneToMany(mappedBy = "profesional",fetch = FetchType.EAGER)
+	
+	@OneToMany(mappedBy = "profesional")
 	public List<Servicio> getServicios() {
 		return servicios;
 	}

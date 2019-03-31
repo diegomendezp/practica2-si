@@ -1,5 +1,7 @@
 package ssii.practica_2.Controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ssii.practica_2.UserValidator;
 import ssii.practica_2.Model.Usuario;
+import ssii.practica_2.Repositories.UsuarioRepository;
 import ssii.practica_2.Service.SecurityService;
 import ssii.practica_2.Service.UserService;
 
@@ -15,7 +18,8 @@ import ssii.practica_2.Service.UserService;
 public class AuthController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private UsuarioRepository userRepository;
     @Autowired
     private SecurityService securityService;
 
@@ -51,6 +55,18 @@ public class AuthController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
         return "login";
+    }
+    
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
+    @ResponseBody
+    public Usuario currentUserName(Principal principal) {
+    	try {
+       return userRepository.findByEmail(principal.getName());
+    	}catch(Exception e) {
+    		System.out.println(e.getLocalizedMessage());
+    	     return userRepository.findByEmail("nico@gmail.com");
+
+    	}
     }
 
 }

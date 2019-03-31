@@ -54,6 +54,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     protected String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
         boolean isAdmin = false;
+        boolean isProfessional = true;
         Collection<? extends GrantedAuthority> authorities
          = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
@@ -63,14 +64,19 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
             } else if (grantedAuthority.getAuthority().equals("ANALYST")) {
                 isAdmin = true;
                 break;
+            } else if(grantedAuthority.getAuthority().equals("PROFESSIONAL")) {
+            	isProfessional = true;
+            	break;
             }
         }
  
         if (isUser) {
             return "/home";
         } else if (isAdmin) {
-            return "/home";
-        } else {
+            return "/admin";
+        } else if(isProfessional) {
+        	return "/profesional";
+    	}else {
             throw new IllegalStateException();
         }
     }

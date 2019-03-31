@@ -3,57 +3,57 @@
 const getService = (
   s,
   showButtons = true,
-  showPrice = true
+  showPrice = true,
 ) => `<div class="service" serviceId='${
   s.id
 }'><img class="map" src="./images/map.png" alt="map" />
                               <div class="service-description">
                                   ${
-                                    s.estado
-                                      ? `<p class='service-estado'><span class=${
-                                          s.estado === "Pendiente"
-                                            ? "pending"
-                                            : s.estado === "Aceptada"
-                                            ? "accepted"
-                                            : s.estado === "Rechazada"
-                                            ? "rejected"
-                                            : "notResponded"
-                                        }>${s.estado}</span></p>`
-                                      : ""
-                                  }
+  s.estado
+    ? `<p class='service-estado'><span class=${
+      s.estado === 'Pendiente'
+        ? 'pending'
+        : s.estado === 'Aceptada'
+          ? 'accepted'
+          : s.estado === 'Rechazada'
+            ? 'rejected'
+            : 'notResponded'
+    }>${s.estado}</span></p>`
+    : ''
+}
                                   <p class='service-category'>${s.categoria}</p>
                                   <h3 onclick='displayServiceView(${s.id})'>${
   s.nombre
 }</h3>
                                   <p class='service-author'>Ofrecido por: <span>${
-                                    s.profesional.nombre
-                                  }</span></p>
+  s.profesional.nombre
+}</span></p>
                                   ${
-                                    showPrice
-                                      ? `<p class='service-price'><span>${
-                                          s.precio_acumulado
-                                            ? "Total: "
-                                            : s.solicitudesTotales
-                                            ? "Solicitudes: "
-                                            : ""
-                                        }</span>${
-                                          s.precio_acumulado
-                                            ? s.precio_acumulado + " €"
-                                            : s.solicitudesTotales
-                                            ? s.solicitudesTotales
-                                            : s.precio_total + " €"
-                                        } </p>`
-                                      : ""
-                                  }
+  showPrice
+    ? `<p class='service-price'><span>${
+      s.precio_acumulado
+        ? 'Total: '
+        : s.solicitudesTotales
+          ? 'Solicitudes: '
+          : ''
+    }</span>${
+      s.precio_acumulado
+        ? `${s.precio_acumulado} €`
+        : s.solicitudesTotales
+          ? s.solicitudesTotales
+          : `${s.precio_total} €`
+    } </p>`
+    : ''
+}
                                   ${
-                                    showButtons
-                                      ? `<div class="service-buttons"><button class="see-more" id="${
-                                          s.id
-                                        }">More</button><button class="apply" onclick="openModal(${
-                                          s.id
-                                        })">Apply</button></div>`
-                                      : ""
-                                  }
+  showButtons
+    ? `<div class="service-buttons"><button class="see-more" id="${
+      s.id
+    }">More</button><button class="apply" onclick="openModal(${
+      s.id
+    })">Apply</button></div>`
+    : ''
+}
                               </div>
                             </div>`;
 
@@ -70,29 +70,28 @@ const getModalService = s => `<p class='modal-pretitle'>Solicitando servicio...<
                                 <div class='modal-buttons'><button onclick='sendRequest()'>Solicitar!</button></div>
                                 `;
 
-const getServiceConfirmation = () =>
-  "<div class='request-info'><h2>Solicitud enviada!</h2><h3>Estado: Pendiente</h3><p>Comprueba tu email para mas detalles.</p> </div>";
+const getServiceConfirmation = () => "<div class='request-info'><h2>Solicitud enviada!</h2><h3>Estado: Pendiente</h3><p>Comprueba tu email para mas detalles.</p> </div>";
 
 const getHome = (
-  role = "CUSTOMER"
+  role = 'CUSTOMER',
 ) => `<img class='bg-img' src='./images/profesionales2.jpg'/>
                         <div class='bg-cover'></div>
                         <div class='container-middle'>
                         <div class='home'>
                             <h1 class='home-title fadeInLeftBig'>Autonomos Network</h1>
                             <div class='home-body'>
-                                <p class='home-body-title'>Who are you?</p>
+                                ${role === 'ANALYST' ? "<p class='home-body-title'>Que quieres ver?</p>" : ''}
                                 ${
-                                  role === "CUSTOMER"
-                                    ? `<div class='home-body-options'>
-                                    <button onclick="changeRol('profesional')">Profesional</button>
-                                    <button onclick="changeRol('client')">Client</button>
+  role === 'CUSTOMER'
+    ? `<div class='home-body-options'>
+                                    <button onclick="">Servicios</button>
+                                    <button onclick="">Solicitudes</button>
                                 </div>`
-                                    : `<div class='home-body-options'>
+    : `<div class='home-body-options'>
                                 <button onclick="displayServicios()">Servicios</button>
                                 <button onclick="displayProfesionales()">Profesionales</button>
                             </div>`
-                                }
+}
 
                             </div>
                         </div>`;
@@ -108,15 +107,15 @@ const getServicesPage = (browser = true, filters = false) => `${
                                         <input id='date-filter'  type="date" />
                                     </div>                                    
                                 </div>`
-    : ""
+    : ''
 }
                                 ${
-                                  filters
-                                    ? `<div id='filtersContainer'><select name="filters" id="filters" class='select' onchange="filterChange(this)">
+  filters
+    ? `<div id='filtersContainer'><select name="filters" id="filters" class='select' onchange="filterChange(this)">
                                     
                                 </select></div>`
-                                    : ""
-                                }
+    : ''
+}
                                 <div class="container">
                                     <div class="services"></div>
                                 </div>`;
@@ -149,3 +148,8 @@ const getProfesional = p => (
     </div>
   </div>`
 );
+
+
+const getNoAutorizado = () => {
+
+};

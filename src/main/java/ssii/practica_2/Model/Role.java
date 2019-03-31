@@ -1,9 +1,13 @@
 package ssii.practica_2.Model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"users"})
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

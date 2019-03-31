@@ -34,9 +34,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.csrf()
         		.disable()
             .authorizeRequests()
-                .antMatchers("/**","resources/**").permitAll()
+                .antMatchers("/registration/**","resources/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ANALYST")
+                .antMatchers("/home").hasAnyAuthority("CUSTOMER,PROFESSIONAL")
+                .antMatchers("/profesional").hasAnyAuthority("PROFESSIONAL")
                 .anyRequest().authenticated()
                 .and()
+            .exceptionHandling()
+            	.accessDeniedPage("/noAutorizado")
+            	.and()
             .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
@@ -54,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService);
+//        .passwordEncoder(bCryptPasswordEncoder());
     }
 }
